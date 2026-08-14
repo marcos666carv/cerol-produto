@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<title>CEROL · Organograma do App</title>
+<style>
+:root{
+  --saibro:#c8cbc3; --saibro-2:#bcc0b8; --card:#ffffff; --ink:#0b120c;
+  --lime:#99cc00; --acid:#ccff33; --clay:#c4553a; --court:#2e5ce6;
+  --pine:#12301f; --pine-2:#1b4029; --lime-deep:#7a9d00; --pos:#4d7a00;
+  --muted:#565d55; --line:rgba(11,18,12,.14);
+  --tile-ink:#0b120c; --tile-ink-fg:#ffffff;
+  --font:"Archivo",ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  --r2:12px; --r3:20px; --pill:999px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --saibro:#0e1a12; --saibro-2:#0a140d; --card:#16241b; --ink:#e8ece6;
+    --muted:#93a094; --line:rgba(232,236,230,.16);
+    --lime-deep:#aed631; --pos:#aed631; --pine:#12301f; --pine-2:#1b4029;
+    --clay:#e07257; --court:#6a8ef5;
+    --tile-ink:#050a06; --tile-ink-fg:#e8ece6;
+  }
+}
+:root[data-theme="light"]{
+  --saibro:#c8cbc3; --saibro-2:#bcc0b8; --card:#ffffff; --ink:#0b120c;
+  --muted:#565d55; --line:rgba(11,18,12,.14);
+  --lime-deep:#7a9d00; --pos:#4d7a00; --clay:#c4553a; --court:#2e5ce6;
+  --tile-ink:#0b120c; --tile-ink-fg:#ffffff;
+}
+:root[data-theme="dark"]{
+  --saibro:#0e1a12; --saibro-2:#0a140d; --card:#16241b; --ink:#e8ece6;
+  --muted:#93a094; --line:rgba(232,236,230,.16);
+  --lime-deep:#aed631; --pos:#aed631; --clay:#e07257; --court:#6a8ef5;
+  --tile-ink:#050a06; --tile-ink-fg:#e8ece6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--saibro);color:var(--ink);font-family:var(--font);line-height:1.45;-webkit-font-smoothing:antialiased;padding:clamp(16px,3vw,40px)}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+
+/* tipo */
+.t-display{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.03em;line-height:1;text-transform:uppercase;text-wrap:balance}
+.t-h2{font-size:18px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.t-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.t-small{font-size:12.5px}
+.t-muted{color:var(--muted)}
+.t-num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* header */
+header{display:flex;flex-direction:column;gap:10px}
+.kicker{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.dotball{width:12px;height:12px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 3px color-mix(in oklab,var(--lime) 30%,transparent);flex:none}
+header .stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+
+/* chips e badges */
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--pill);background:var(--card);font-size:11px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.chip--ink{background:var(--tile-ink);color:var(--tile-ink-fg)}
+.chip--acid{background:var(--acid);color:#0b120c}
+.chip--outline{background:transparent;border:1.5px dashed var(--line)}
+.scr{font-family:var(--mono);font-size:9.5px;font-weight:700;background:color-mix(in oklab,var(--lime) 26%,transparent);color:var(--lime-deep);border-radius:6px;padding:1px 6px;letter-spacing:.02em;white-space:nowrap;vertical-align:1px}
+.xp{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--pos);white-space:nowrap}
+.rs{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--court);white-space:nowrap}
+.warn{color:var(--clay);font-size:11.5px}
+.ph2{font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:1px 6px;white-space:nowrap}
+
+/* seções */
+section{display:flex;flex-direction:column;gap:14px}
+.sec-cap{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec-cap .n{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--lime-deep)}
+
+/* onboarding — esteira */
+.stepper{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.step{background:var(--card);border-radius:var(--r3);padding:14px;display:flex;flex-direction:column;gap:8px;position:relative}
+.step .num{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--lime-deep);line-height:1}
+.step h3{font-size:14px;font-weight:800;letter-spacing:-.01em}
+.step ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.step li{font-size:12px;color:var(--muted);padding-left:14px;position:relative}
+.step li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--lime)}
+.step--reward{background:var(--pine);color:#fff}
+.step--reward .t-label{color:rgba(255,255,255,.55)}
+.step--reward li{color:rgba(255,255,255,.75)}
+.step--reward .num{color:var(--acid)}
+.err-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* tronco da navegação */
+.trunk{display:flex;flex-direction:column;align-items:center;gap:0}
+.trunk-node{background:var(--tile-ink);color:var(--tile-ink-fg);border-radius:var(--pill);padding:12px 28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;text-align:center}
+.trunk-node .t-label{color:color-mix(in oklab,var(--tile-ink-fg) 55%,transparent)}
+.trunk-line{width:2px;height:26px;background:var(--line)}
+
+/* ramos bento */
+.branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;align-items:start}
+.branch{background:var(--card);border-radius:var(--r3);overflow:hidden;display:flex;flex-direction:column}
+.branch>header{flex-direction:row;align-items:center;gap:10px;padding:12px 16px}
+.branch .tag{font-family:var(--mono);font-size:10px;font-weight:700;opacity:.65}
+.branch>header h3{font-size:16px;font-weight:800;letter-spacing:-.01em;text-transform:uppercase}
+.branch>header .scr{background:rgba(255,255,255,.88);color:#4d6600}
+.bh-ink{background:var(--tile-ink);color:var(--tile-ink-fg)}
+.bh-pine{background:var(--pine);color:#fff}
+.bh-acid{background:var(--acid);color:#0b120c}
+.bh-lime{background:var(--lime);color:#0b120c}
+.bh-court{background:var(--court);color:#fff}
+.bh-flat{background:var(--saibro-2);color:var(--ink)}
+.branch .body{padding:12px 16px 16px;display:flex;flex-direction:column;gap:2px}
+
+/* árvore com conectores */
+.tree,.tree ul{list-style:none}
+.tree>li{padding:7px 0;border-bottom:1px solid var(--line)}
+.tree>li:last-child{border-bottom:none;padding-bottom:0}
+.tree .node{font-size:13.5px;font-weight:700;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.tree .desc{font-size:11.5px;color:var(--muted);font-weight:400}
+.tree ul{margin:6px 0 2px 7px;padding-left:14px;border-left:2px solid color-mix(in oklab,var(--lime) 45%,transparent);display:flex;flex-direction:column;gap:4px}
+.tree ul li{font-size:12px;color:var(--muted);position:relative}
+.tree ul li::before{content:"";position:absolute;left:-14px;top:9px;width:9px;height:2px;background:color-mix(in oklab,var(--lime) 45%,transparent)}
+.tree ul li b{color:var(--ink);font-weight:700}
+
+/* fluxos do FAB */
+.flows{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;align-items:start}
+.flow{background:var(--card);border-radius:var(--r3);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.flow>h3{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.flow ol{list-style:none;display:flex;flex-direction:column;counter-reset:fs}
+.flow ol li{counter-increment:fs;position:relative;padding:0 0 10px 26px;font-size:12.5px}
+.flow ol li::before{content:counter(fs);position:absolute;left:0;top:0;width:17px;height:17px;border-radius:50%;background:var(--acid);color:#0b120c;font-family:var(--mono);font-size:9.5px;font-weight:700;display:grid;place-items:center}
+.flow ol li:not(:last-child)::after{content:"";position:absolute;left:8px;top:19px;bottom:1px;width:2px;background:color-mix(in oklab,var(--lime) 40%,transparent)}
+.flow ol li .t-muted{display:block;font-size:11px}
+.flow .out{background:var(--pine);color:#fff;border-radius:var(--r2);padding:8px 12px;font-size:11.5px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.flow .out .t-label{color:rgba(255,255,255,.55)}
+.flow .out .xp{color:var(--acid)}
+
+/* legenda */
+.legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;background:var(--card);border-radius:var(--r3);padding:12px 16px}
+.legend .item{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted)}
+
+footer{font-size:11px;color:var(--muted);padding-bottom:10px}
+footer code{font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">
+    <span class="dotball"></span>
+    <span class="t-label">CEROL · ON COURT — Tênis &amp; Beach Tennis</span>
+  </div>
+  <h1 class="t-display">Organograma do app</h1>
+  <p class="t-small t-muted" style="max-width:66ch">Todas as páginas, passos e opções mapeados a partir dos docs de produto (01–05). Regra de ouro da navegação: <b style="color:var(--ink)">toda ação primária a no máximo 2 toques da home</b>.</p>
+  <div class="stats">
+    <span class="chip chip--ink"><span class="t-num">5</span>&nbsp;tabs + FAB</span>
+    <span class="chip"><span class="t-num">9</span>&nbsp;fluxos (F1–F9)</span>
+    <span class="chip"><span class="t-num">52</span>&nbsp;telas desenhadas</span>
+    <span class="chip chip--acid">MVP 18+ · Floripa</span>
+  </div>
+</header>
+
+<div class="legend">
+  <span class="item"><span class="scr">T05</span> tela já desenhada em <span class="t-num">screens/</span></span>
+  <span class="item"><span class="xp">+50 XP</span> recompensa (XP · PL · Bolinhas)</span>
+  <span class="item"><span class="ph2">fase 2</span> fora do MVP</span>
+  <span class="item"><span class="warn">●</span> estado de erro / atenção</span>
+</div>
+
+<!-- ══════════ 1 · ONBOARDING ══════════ -->
+<section>
+  <div class="sec-cap">
+    <span class="n">01</span>
+    <h2 class="t-h2">ONBOARDING — do download à primeira recompensa em &lt; 3 min</h2>
+  </div>
+  <div class="stepper">
+    <div class="step">
+      <span class="num">1</span>
+      <h3>Splash → Login <span class="scr">T01</span></h3>
+      <ul><li>Apple (1 toque)</li><li>Google (1 toque)</li><li>E-mail</li></ul>
+    </div>
+    <div class="step">
+      <span class="num">2</span>
+      <h3>Cadastro básico <span class="scr">T01b</span></h3>
+      <ul><li>Nome</li><li>Nascimento — gate 18+ (LGPD)</li><li>Cidade</li></ul>
+    </div>
+    <div class="step">
+      <span class="num">3</span>
+      <h3>Autoavaliação de nível <span class="scr">T02</span></h3>
+      <ul><li>6 perguntas visuais (estilo NTRP)</li><li>→ rating provisório (ex.: 2.5)</li><li>Selo "provisório até 3 partidas validadas"</li></ul>
+    </div>
+    <div class="step">
+      <span class="num">4</span>
+      <h3>Monte seu atleta <span class="scr">T02b</span></h3>
+      <ul><li>4 atletas ilustrados</li><li>Gênero · tom de pele · estilo</li><li>Vira avatar do card de perfil</li></ul>
+    </div>
+    <div class="step">
+      <span class="num">5</span>
+      <h3>Modalidades <span class="scr">T02c</span></h3>
+      <ul><li>Tênis</li><li>Beach tennis</li><li>Ambos</li></ul>
+    </div>
+    <div class="step">
+      <span class="num">6</span>
+      <h3>Quadras que frequenta <span class="scr">T02d</span></h3>
+      <ul><li>Sugestão por geo (raio 10 km)</li><li>Busca manual</li><li>Mínimo 0 · ideal 1+</li></ul>
+    </div>
+    <div class="step">
+      <span class="num">7</span>
+      <h3>Permissões <span class="scr">T03</span></h3>
+      <ul><li>Notificações — "é assim que a liga te avisa"</li><li>Localização (opcional)</li><li>HealthKit / Google Fit (opcional)</li></ul>
+    </div>
+    <div class="step step--reward">
+      <span class="num">8</span>
+      <h3>Aterrissa na Home</h3>
+      <ul><li>Liga da semana já atribuída (Bronze)</li><li>Cadastro completo: <span class="xp" style="color:var(--acid)">+50 XP</span></li><li>Missão "Bola dentro!" — 1ª sessão em 48h: <span class="xp" style="color:var(--acid)">+100 XP +50 Bolinhas</span></li></ul>
+    </div>
+  </div>
+  <div class="err-row">
+    <span class="warn">● menor de 18 → tela de espera + e-mail da fase juvenil</span>
+    <span class="warn">● sem geo → cidade manual</span>
+    <span class="warn">● sem quadra → segue normalmente</span>
+  </div>
+</section>
+
+<!-- ══════════ 2 · NAVEGAÇÃO ══════════ -->
+<section>
+  <div class="sec-cap">
+    <span class="n">02</span>
+    <h2 class="t-h2">NAVEGAÇÃO PRINCIPAL — bottom nav, 5 slots + FAB central</h2>
+  </div>
+
+  <div class="trunk">
+    <div class="trunk-node">
+      <span class="t-label">Esqueleto do app</span>
+      <b>INÍCIO · EXPLORAR · <span style="color:var(--acid)">JOGAR ●</span> · LIGAS · LOJA</b>
+      <span class="t-label">Perfil no avatar do header · sino de notificações</span>
+    </div>
+    <div class="trunk-line"></div>
+  </div>
+
+  <div class="branches">
+
+    <!-- INÍCIO -->
+    <div class="branch">
+      <header class="bh-ink"><span class="tag">TAB 1</span><h3>Início</h3><span class="scr">T05</span></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Header <span class="desc">fixo em todas as tabs</span></div>
+          <ul><li><b>Avatar + anel de nível</b> → abre Perfil</li><li>Sequência 🔥 · saldo de Bolinhas</li><li>Sino de notificações <span class="scr">T04</span></li></ul></li>
+        <li><div class="node">Compromisso contextual <span class="desc">condicional</span></div>
+          <ul><li>Prioridade: placar a confirmar &gt; partida hoje &gt; reserva próxima</li></ul></li>
+        <li><div class="node">Sua Liga <span class="desc">bloco 1 obrigatório</span></div>
+          <ul><li>Divisão · posição na coorte de 30 · PL</li><li>Contagem regressiva p/ domingo</li><li>Mini-tabela: top 3 + vizinhos</li></ul></li>
+        <li><div class="node">Últimos jogos <span class="desc">bloco 2</span></div>
+          <ul><li>3 itens: adversário · resultado · ΔRating · XP</li><li>→ histórico completo <span class="scr">T05b</span></li></ul></li>
+        <li><div class="node">Insights <span class="desc">bloco 3 — carrossel por regras</span></div></li>
+        <li><div class="node">Missões da semana</div><ul><li>3 missões com barra de progresso</li></ul></li>
+        <li><div class="node">Trilha em andamento</div><ul><li>Estágio atual + próxima missão</li></ul></li>
+      </ul></div>
+    </div>
+
+    <!-- EXPLORAR -->
+    <div class="branch">
+      <header class="bh-court"><span class="tag">TAB 2</span><h3>Explorar</h3><span class="scr">T06</span></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Mapa <span class="desc">3 camadas alternáveis</span></div>
+          <ul><li><b>Quadras</b> · <b>partidas abertas</b> · <b>jogadores disponíveis</b> (opt-in)</li><li>Filtros: raio 1–25 km · rating · modalidade · período</li><li>Privacidade: fuzzing ~500 m; exato só após match confirmado</li></ul></li>
+        <li><div class="node">Quadras <span class="scr">T19</span></div>
+          <ul><li>Lista + filtros: distância · preço/h · modalidade · piso · horário</li><li>Detalhe: fotos · preço · avaliações · agenda → <b>reserva</b> (F5)</li></ul></li>
+        <li><div class="node">Partidas abertas <span class="scr">T06b</span></div>
+          <ul><li>Filtro por rating · distância · horário</li><li>"Topo!" → candidatura ao match</li></ul></li>
+        <li><div class="node">Jogadores próximos <span class="scr">T06c</span></div>
+          <ul><li>Opt-in "disponível para jogar" · desliga a qualquer momento</li></ul></li>
+        <li><div class="node">Clubes <span class="scr">T06d·e</span></div>
+          <ul><li>5–50 membros · ranking entre clubes</li><li>Feed com kudos "Bola dentro!"</li></ul></li>
+      </ul></div>
+    </div>
+
+    <!-- JOGAR -->
+    <div class="branch">
+      <header class="bh-acid"><span class="tag">FAB CENTRAL</span><h3>Jogar ●</h3><span class="scr">T07</span></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Sheet com 4 ações <span class="desc">âncora do loop de hábito</span></div></li>
+        <li><div class="node">1 · Registrar sessão <span class="scr">T08</span></div>
+          <ul><li>Timer ao vivo · contador +1 · HealthKit/Fit · manual retroativo</li><li>→ fluxo F3 abaixo</li></ul></li>
+        <li><div class="node">2 · Registrar partida <span class="scr">T10</span></div>
+          <ul><li>Assistente em 3 passos → validação bilateral</li><li>→ fluxo F4 abaixo</li></ul></li>
+        <li><div class="node">3 · Abrir match <span class="scr">T20</span></div>
+          <ul><li>Formulário de 1 tela → fluxo F6 abaixo</li></ul></li>
+        <li><div class="node">4 · Reservar quadra</div>
+          <ul><li>Atalho → Explorar › Quadras (F5)</li></ul></li>
+      </ul></div>
+    </div>
+
+    <!-- LIGAS -->
+    <div class="branch">
+      <header class="bh-pine"><span class="tag">TAB 4</span><h3>Ligas</h3><span class="scr">T12</span></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Liga semanal</div>
+          <ul><li>Divisões Bronze → Elite · coorte de 30</li><li>Zera 2ª-feira · top 10 sobem · últimos 5 caem</li></ul></li>
+        <li><div class="node">Ranking da cidade <span class="scr">T12b</span></div><ul><li>Por rating validado</li></ul></li>
+        <li><div class="node">Trilhas de fundamento <span class="scr">T13</span></div>
+          <ul><li>Skill tree: 6 trilhas × 10 estágios</li><li>Validação: auto · vídeo · professor (selo → B2B) <span class="scr">T13b</span></li></ul></li>
+        <li><div class="node">Desafios <span class="scr">T14</span></div>
+          <ul><li><b>Desafio do mês</b>: pago (R$ 59–99) · medalha física <span class="scr">T14b</span></li><li><b>Relâmpago</b>: 48–72h · grátis · Bolinhas + emblemas</li></ul></li>
+        <li><div class="node">Temporada <span class="scr">T15</span></div>
+          <ul><li>10–12 semanas · trilha gratuita de recompensas</li><li>Culmina nos <b>Finals</b> presenciais</li></ul></li>
+      </ul></div>
+    </div>
+
+    <!-- LOJA -->
+    <div class="branch">
+      <header class="bh-lime"><span class="tag">TAB 5</span><h3>Loja</h3><span class="scr">T16</span></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Cupons de parceiros <span class="desc">Bolinhas</span></div>
+          <ul><li>500 Bolinhas = R$ 10 · QR/código com validade</li><li>Resgate: item → confirmar → débito → uso → parceiro valida no painel B2B</li></ul></li>
+        <li><div class="node">Cosméticos de perfil <span class="desc">Bolinhas 200–800</span> <span class="scr">T16b</span></div>
+          <ul><li>Molduras · temas · raquetes ilustradas · celebrações</li></ul></li>
+        <li><div class="node">Sorteios / desafio especial <span class="desc">Bolinhas 100–300</span></div></li>
+        <li><div class="node">Desafios com medalha física <span class="desc">R$ 59–99</span></div>
+          <ul><li>Ex.: "Desafio Saibro: 3.000 bolas em 30 dias"</li></ul></li>
+        <li><div class="node">Artigos esportivos <span class="scr">T21</span></div>
+          <ul><li>Fase 1: vitrine de afiliados · <span class="ph2">fase 2</span> marketplace + checkout <span class="scr">T22</span></li></ul></li>
+        <li><div class="node">Serviços <span class="ph2">fase 2</span></div>
+          <ul><li>Aulas · encordoamento · clínicas — take 8–12%</li></ul></li>
+      </ul></div>
+    </div>
+
+    <!-- PERFIL -->
+    <div class="branch">
+      <header class="bh-flat"><span class="tag">AVATAR NO HEADER</span><h3>Perfil</h3><span class="scr">T17</span></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Cartão de Jogador</div>
+          <ul><li>Nível XP + faixa de bola · rating · sequência · emblemas</li></ul></li>
+        <li><div class="node">Estatísticas &amp; histórico <span class="scr">T17b</span></div><ul><li>Todos os jogos · stats por piso</li></ul></li>
+        <li><div class="node">Conquistas e medalhas <span class="scr">T17c</span></div><ul><li>Digitais + físicas</li></ul></li>
+        <li><div class="node">Assinatura Pro <span class="desc">R$ 14,90–24,90/mês</span> <span class="scr">T17d</span></div>
+          <ul><li>Falha de cobrança: retry 3× → downgrade suave (nunca apaga progresso)</li></ul></li>
+        <li><div class="node">Pagamentos <span class="scr">T18</span></div>
+          <ul><li>Adicionar cartão → SDK do gateway → token (só bandeira + 4 dígitos) <span class="scr">T18b</span></li><li>Biometria p/ compra em 1 toque · Pix sem cadastro (QR por transação)</li><li>Histórico e recibos</li></ul></li>
+        <li><div class="node">Visual <span class="desc">troca do atleta ilustrado</span> <span class="scr">T17g</span></div></li>
+        <li><div class="node">Clubes e amigos <span class="scr">T17e</span></div></li>
+        <li><div class="node">Configurações <span class="scr">T17f</span></div>
+          <ul><li>Conta · privacidade/LGPD · notificações · unidades/idioma</li></ul></li>
+      </ul></div>
+    </div>
+
+    <!-- TRANSVERSAIS -->
+    <div class="branch">
+      <header class="bh-flat"><span class="tag">SEM TAB</span><h3>Transversais</h3></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Notificações push contextuais</div><ul><li>Gatilhos do loop de hábito · lembretes 24h/2h de reserva</li></ul></li>
+        <li><div class="node">Busca global <span class="scr">T24</span></div><ul><li>Jogadores · quadras · clubes</li></ul></li>
+        <li><div class="node">Compartilhamento <span class="scr">T25</span></div><ul><li>Cartão de resultado p/ stories · feed do clube</li></ul></li>
+        <li><div class="node">Suporte / FAQ / denúncia comunitária <span class="scr">T27</span></div></li>
+      </ul></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ 3 · FLUXOS DO FAB ══════════ -->
+<section>
+  <div class="sec-cap">
+    <span class="n">03</span>
+    <h2 class="t-h2">FLUXOS DE AÇÃO — o que acontece depois de cada toque</h2>
+  </div>
+  <div class="flows">
+
+    <div class="flow">
+      <h3>F3 · Registrar sessão <span class="scr">T08</span></h3>
+      <ol>
+        <li>FAB Jogar → <b>Registrar sessão</b></li>
+        <li>Modo: timer ao vivo · contador +1 · importar HealthKit/Fit · manual retroativo <span class="scr">T08b·c</span></li>
+        <li>Tipo: treino livre · paredão · aula · físico</li>
+        <li>Fim → <b>tela de recompensa</b> <span class="scr">T09</span><span class="t-muted">o momento de dopamina: barra anima, sequência e trilha avançam</span></li>
+        <li>Compartilhar no clube (opcional) → kudos</li>
+      </ol>
+      <div class="out"><span class="t-label">Ganhos</span><span class="xp">+50 XP (30min+)</span><span class="xp">PL equiv.</span><span class="xp">~20% Bolinhas</span></div>
+      <span class="warn">● antifarm: teto 400 XP/dia auto-relatado · nunca toca o rating</span>
+    </div>
+
+    <div class="flow">
+      <h3>F4 · Partida validada <span class="scr">T10</span></h3>
+      <ol>
+        <li><b>Passo 1 · Competidor</b>: busca + sugestões · QR presencial p/ quem não tem app</li>
+        <li><b>Passo 2 · Onde e quando</b> <span class="scr">T10b</span><span class="t-muted">quadra por geo · piso · horário (antifraude espaço-tempo)</span></li>
+        <li><b>Passo 3 · Placar por sets</b> <span class="scr">T10c</span> → envia</li>
+        <li>Adversário: <b>Confirmar</b> ou <b>Contestar</b> em 48h <span class="scr">T11</span><span class="t-muted">sem resposta = pendente, não conta</span></li>
+        <li>Validada → rating 1.0–7.0 recalculado p/ ambos + card compartilhável</li>
+      </ol>
+      <div class="out"><span class="t-label">Ganhos</span><span class="xp">+120 XP ambos</span><span class="xp">PL peso 2×</span></div>
+      <span class="warn">● contestada → re-submissão ou descarte · reincidência alimenta score antifraude</span>
+    </div>
+
+    <div class="flow">
+      <h3>F6 · Abrir match <span class="scr">T20</span></h3>
+      <ol>
+        <li>Formulário de 1 tela: tipo (simples · duplas · racha) · modalidade · nível-alvo (rating ±0.5) · local ou raio · data/janela · visibilidade (público · clube · amigos)</li>
+        <li>Publica → Explorar › Partidas abertas + mapa · push p/ compatíveis</li>
+        <li>Interessados tocam <b>"Topo!"</b> → criador vê cartões e aceita</li>
+        <li>Confirmação bilateral → vira <b>compromisso</b> na home + chat leve <span class="scr">T26</span></li>
+        <li>Pós-jogo → F4 (placar → validação)</li>
+      </ol>
+      <span class="warn">● expirou sem aceite → ampliar raio · ampliar rating · postar no clube</span>
+    </div>
+
+    <div class="flow">
+      <h3>F5 · Reservar quadra <span class="scr">T19</span></h3>
+      <ol>
+        <li>Explorar → Quadras (mapa/lista) + filtros</li>
+        <li>Detalhe da quadra → agenda de slots (1h)</li>
+        <li>Data + horário · opcional: convidar parceiro ou abrir match no slot</li>
+        <li>Pagamento: Pix (default) ou cartão salvo · recibo no app<span class="t-muted">split automático academia/plataforma na <b>fase 2</b></span></li>
+        <li>Confirmação + lembretes 24h e 2h antes</li>
+        <li><b>Check-in por geofence</b> no horário <span class="scr">T19b</span></li>
+      </ol>
+      <div class="out"><span class="t-label">Ganhos</span><span class="xp">+300 XP presencial</span></div>
+      <span class="warn">● cancelamento por política da quadra · no-show penaliza prioridade, nunca o rating</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ 4 · ECONOMIA ══════════ -->
+<section>
+  <div class="sec-cap">
+    <span class="n">04</span>
+    <h2 class="t-h2">OS 3 EIXOS — nunca se misturam</h2>
+  </div>
+  <div class="branches">
+    <div class="branch">
+      <header class="bh-lime"><h3>XP · jornada</h3></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Mede dedicação, nunca habilidade</div>
+          <ul><li>Sessão 30min+ = 50 · partida = 120 · check-in = 300</li><li>Nível + faixa de bola no Cartão de Jogador</li></ul></li>
+      </ul></div>
+    </div>
+    <div class="branch">
+      <header class="bh-pine"><h3>Pontos de Liga · semana</h3></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Zeram toda segunda-feira</div>
+          <ul><li>Partida validada vale peso 2×</li><li>Top 10 sobem · últimos 5 caem de divisão</li></ul></li>
+      </ul></div>
+    </div>
+    <div class="branch">
+      <header class="bh-ink"><h3>Rating · habilidade</h3></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">1.0–7.0, tipo UTR simplificado</div>
+          <ul><li>Só partida validada bilateral altera</li><li>XP e Bolinhas jamais inflam o rating</li></ul></li>
+      </ul></div>
+    </div>
+    <div class="branch">
+      <header class="bh-acid"><h3>Bolinhas · moeda</h3></header>
+      <div class="body"><ul class="tree">
+        <li><div class="node">Recompensa variável (~15–25% das ações)</div>
+          <ul><li>Gasta na Loja: cupons · cosméticos · sorteios</li><li>Sem moeda comprável no MVP (anti pay-to-win) · meta inflação zero</li></ul></li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Fontes: <code>produto/01-arquitetura-informacao.md</code> · <code>02-fluxos.md</code> · <code>03-gamificacao</code> · <code>05-home-navegacao-gamefeel.md</code> · telas em <code>produto/design/screens/</code> (T01–T27, 52 arquivos). Badges <span class="scr">Txx</span> apontam o arquivo da tela correspondente.
+</footer>
+
+</div>
+
+</body>
+</html>

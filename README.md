@@ -14,6 +14,14 @@ Transformar cada treino e cada partida amadora em progresso visível, competiç�
 3. **Competição saudável** — ligas semanais de coorte + rating validado bilateral que nunca infla.
 4. **Rito presencial** — o digital culmina em eventos físicos (Rally de Abertura, Finals da Temporada) e medalhas reais.
 
+
+## Ver ao vivo (GitHub Pages)
+
+- **[Protótipo navegável](https://marcos666carv.github.io/cerol-produto/design/prototipo.html)** — o app inteiro, tela a tela
+- **[Galeria das 52 telas](https://marcos666carv.github.io/cerol-produto/design/telas.html)** · **[Biblioteca de componentes](https://marcos666carv.github.io/cerol-produto/design/components.html)**
+- **[Relatório visual](https://marcos666carv.github.io/cerol-produto/relatorios/relatorio-telas-visual.html)** · **[Organograma](https://marcos666carv.github.io/cerol-produto/relatorios/organograma.html)**
+- Índice: **[marcos666carv.github.io/cerol-produto](https://marcos666carv.github.io/cerol-produto/)**
+
 ## Documentos
 
 | Doc | Conteúdo |
@@ -23,6 +31,7 @@ Transformar cada treino e cada partida amadora em progresso visível, competiç�
 | [03-gamificacao-e-pontos.md](03-gamificacao-e-pontos.md) | Loop de hábito, 3 eixos, economia de 3 moedas, trilhas, desafios, antifraude |
 | [04-roadmap-local-global.md](04-roadmap-local-global.md) | T0→T4 + fases de expansão global, métricas norte, riscos |
 | [05-home-navegacao-gamefeel.md](05-home-navegacao-gamefeel.md) | Spec da home (ranking · últimos jogos · insights), bottom nav, princípios de game-feel |
+| [relatorios/](relatorios/) | Organograma do app (HTML + PDF), relatório de telas & funcionalidades e edição visual com as 52 telas renderizadas |
 | [design/](design/) | DS Court Mode: `ds.css` (componentes), `icons.svg.html` (sprite), `components.html` (biblioteca), `screens/` (52 telas), `telas.html` (galeria), `build.py` (monta tudo), `DIRECAO.md` (direção + vocabulário) |
 
 ## Princípios transversais (decisões já tomadas nos documentos-fonte)

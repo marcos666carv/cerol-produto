@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<title>CEROL · Relatório de Telas & Funcionalidades</title>
+<style>
+:root{
+  --saibro:#c8cbc3; --saibro-2:#bcc0b8; --card:#ffffff; --ink:#0b120c;
+  --lime:#99cc00; --acid:#ccff33; --clay:#c4553a; --court:#2e5ce6;
+  --pine:#12301f; --lime-deep:#7a9d00; --pos:#4d7a00;
+  --muted:#565d55; --line:rgba(11,18,12,.14);
+  --tile-ink:#0b120c; --tile-ink-fg:#ffffff;
+  --font:"Archivo",ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  --r2:12px; --r3:20px; --pill:999px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --saibro:#0e1a12; --saibro-2:#0a140d; --card:#16241b; --ink:#e8ece6;
+    --muted:#93a094; --line:rgba(232,236,230,.16);
+    --lime-deep:#aed631; --pos:#aed631; --clay:#e07257; --court:#6a8ef5;
+    --tile-ink:#050a06; --tile-ink-fg:#e8ece6;
+  }
+}
+:root[data-theme="light"]{
+  --saibro:#c8cbc3; --saibro-2:#bcc0b8; --card:#ffffff; --ink:#0b120c;
+  --muted:#565d55; --line:rgba(11,18,12,.14);
+  --lime-deep:#7a9d00; --pos:#4d7a00; --clay:#c4553a; --court:#2e5ce6;
+  --tile-ink:#0b120c; --tile-ink-fg:#ffffff;
+}
+:root[data-theme="dark"]{
+  --saibro:#0e1a12; --saibro-2:#0a140d; --card:#16241b; --ink:#e8ece6;
+  --muted:#93a094; --line:rgba(232,236,230,.16);
+  --lime-deep:#aed631; --pos:#aed631; --clay:#e07257; --court:#6a8ef5;
+  --tile-ink:#050a06; --tile-ink-fg:#e8ece6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--saibro);color:var(--ink);font-family:var(--font);line-height:1.45;-webkit-font-smoothing:antialiased;padding:clamp(16px,3vw,40px)}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+.t-display{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1;text-transform:uppercase;text-wrap:balance}
+.t-h2{font-size:18px;font-weight:800;letter-spacing:-.01em}
+.t-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.t-small{font-size:12.5px}
+.t-muted{color:var(--muted)}
+.t-num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+header.page{display:flex;flex-direction:column;gap:10px}
+.kicker{display:flex;align-items:center;gap:10px}
+.dotball{width:12px;height:12px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 3px color-mix(in oklab,var(--lime) 30%,transparent);flex:none}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--pill);background:var(--card);font-size:11px;font-weight:700;white-space:nowrap}
+.chip--ink{background:var(--tile-ink);color:var(--tile-ink-fg)}
+.chip--acid{background:var(--acid);color:#0b120c}
+.scr{font-family:var(--mono);font-size:9.5px;font-weight:700;background:color-mix(in oklab,var(--lime) 26%,transparent);color:var(--lime-deep);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.nova{font-family:var(--mono);font-size:9px;font-weight:700;background:var(--acid);color:#0b120c;border-radius:6px;padding:1px 5px;letter-spacing:.04em}
+.ph2{font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:1px 6px;white-space:nowrap}
+section{display:flex;flex-direction:column;gap:12px}
+.sec-cap{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec-cap .n{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--lime-deep)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.card{background:var(--card);border-radius:var(--r3);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.card--pine{background:var(--pine);color:#fff}
+.card--pine .t-label{color:rgba(255,255,255,.55)}
+.card--pine .t-muted{color:rgba(255,255,255,.65)}
+.big{font-family:var(--mono);font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.big small{font-size:13px;color:var(--muted);font-family:var(--font);font-weight:700}
+.card--pine .big small{color:rgba(255,255,255,.6)}
+.tblwrap{background:var(--card);border-radius:var(--r3);padding:6px 14px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+th{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:8px 10px 8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td b{font-weight:700}
+td .t-muted{font-size:11.5px}
+.ghead{display:flex;align-items:center;gap:10px;margin-top:6px}
+.ghead h3{font-size:14px;font-weight:800;text-transform:uppercase}
+.ghead .t-num{font-size:11px;color:var(--muted)}
+.oklist{list-style:none;display:flex;flex-direction:column;gap:6px}
+.oklist li{font-size:12.5px;padding-left:20px;position:relative}
+.oklist li::before{content:"";position:absolute;left:0;top:4px;width:11px;height:11px;border-radius:50%;background:var(--lime)}
+.oklist li.warn::before{background:var(--clay)}
+footer{font-size:11px;color:var(--muted);padding-bottom:8px}
+footer code,.mono{font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="page">
+  <div class="kicker"><span class="dotball"></span><span class="t-label">CEROL · ON COURT · Court Mode — 14 ago 2026</span></div>
+  <h1 class="t-display">Telas &amp; funcionalidades</h1>
+  <p class="t-small t-muted" style="max-width:66ch">Relatório após a rodada de hoje: todas as lacunas do organograma viraram tela, o design system ganhou motion e componentes sociais, e o protótipo navega o produto inteiro.</p>
+  <div class="stats">
+    <span class="chip chip--ink"><span class="t-num">52</span>&nbsp;telas (26 novas)</span>
+    <span class="chip"><span class="t-num">156</span>&nbsp;regras de navegação</span>
+    <span class="chip"><span class="t-num">8</span>&nbsp;mecânicas de motion</span>
+    <span class="chip"><span class="t-num">45+</span>&nbsp;transições testadas</span>
+    <span class="chip chip--acid">auditoria 52/52 limpa</span>
+  </div>
+</header>
+
+<!-- 01 -->
+<section>
+  <div class="sec-cap"><span class="n">01</span><h2 class="t-h2">O QUE MUDOU HOJE</h2></div>
+  <div class="cards">
+    <div class="card card--pine"><span class="t-label">Telas</span><span class="big">26 → 52</span><span class="t-small t-muted">26 telas novas + 3 editadas (home com missões e trilha abaixo da dobra, Explorar com Clubes, Perfil com 3 novas entradas)</span></div>
+    <div class="card"><span class="t-label">ds.css</span><span class="big">+2 <small>seções</small></span><span class="t-small t-muted">19 · Motion (toque, FAB, hot, entradas) e 20 · Social (chat, emblemas, card de stories) + 7 regras de contraste/variantes que eliminaram styles inline repetidos</span></div>
+    <div class="card"><span class="t-label">Protótipo</span><span class="big">100%</span><span class="t-small t-muted">MAPA re-roteado: onboarding completo em 7 passos, FAB → 4 portas, Perfil → 8 subtelas, Ligas com 5 abas, voltar por chevron</span></div>
+    <div class="card"><span class="t-label">Qualidade</span><span class="big">16 <small>defeitos corrigidos</small></span><span class="t-small t-muted">2 revisores adversariais (DS + spec/copy) e auditoria mecânica de classes, ícones, vocabulário, ids e imagens</span></div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-cap"><span class="n">02</span><h2 class="t-h2">INVENTÁRIO COMPLETO — 7 grupos</h2><span class="t-small t-muted"><span class="nova">NOVA</span> = desenhada hoje</span></div>
+
+  <div class="ghead"><h3>Onboarding</h3><span class="t-num">7 telas · F1 · &lt; 3 min até a 1ª recompensa</span></div>
+  <div class="tblwrap"><table>
+    <tr><th>Tela</th><th>O que entrega</th><th>Navega para</th></tr>
+    <tr><td><span class="scr">T01</span> <b>Splash / Login</b></td><td>Vídeo motion + Apple · Google · e-mail</td><td>Cadastro</td></tr>
+    <tr><td><span class="scr">T01b</span> <b>Dados básicos</b> <span class="nova">NOVA</span></td><td>Nome · nascimento (gate 18+/LGPD) · cidade, indicador de 6 passos</td><td>Autoavaliação</td></tr>
+    <tr><td><span class="scr">T02</span> <b>Autoavaliação de nível</b></td><td>6 perguntas NTRP → rating provisório</td><td>Monte seu atleta</td></tr>
+    <tr><td><span class="scr">T02b</span> <b>Monte seu atleta</b></td><td>4 atletas ilustrados + tom de pele</td><td>Modalidades</td></tr>
+    <tr><td><span class="scr">T02c</span> <b>Modalidades</b> <span class="nova">NOVA</span></td><td>Tênis · beach tennis · ambos</td><td>Suas quadras</td></tr>
+    <tr><td><span class="scr">T02d</span> <b>Quadras que frequenta</b> <span class="nova">NOVA</span></td><td>Sugestão por geo (raio 10 km) + busca, opcional</td><td>Permissões</td></tr>
+    <tr><td><span class="scr">T03</span> <b>Permissões</b></td><td>Notificações · localização · Apple Saúde, com racional antes do prompt</td><td>Home (+50 XP + missão "Bola dentro!")</td></tr>
+  </table></div>
+
+  <div class="ghead"><h3>Núcleo</h3><span class="t-num">6 telas · F2 + transversais</span></div>
+  <div class="tblwrap"><table>
+    <tr><th>Tela</th><th>O que entrega</th><th>Navega para</th></tr>
+    <tr><td><span class="scr">T05</span> <b>Home</b> <span class="nova">+2 blocos</span></td><td>Card de perfil · Sua Liga · Insight · Últimos jogos · <b>Missões da semana e Trilha em andamento abaixo da dobra</b></td><td>Liga, notificações, histórico, perfil, estágio, match</td></tr>
+    <tr><td><span class="scr">T04</span> <b>Notificações</b> <span class="nova">NOVA</span></td><td>5 gatilhos do loop (placar, match, liga, check-in, relâmpago), dot nas não lidas</td><td>Validação, chat, liga, check-in, desafio</td></tr>
+    <tr><td><span class="scr">T05b</span> <b>Histórico</b> <span class="nova">NOVA</span></td><td>Filtro Tudo/Partidas/Sessões, stats (48 jogos · 56% · Sequência 12), zonas por mês</td><td>Card de compartilhar</td></tr>
+    <tr><td><span class="scr">T06</span> <b>Explorar</b> <span class="nova">+Clubes</span></td><td>Mapa 3 camadas + busca + filtros + lista de quadras</td><td>Quadra, partidas, jogadores, clubes, busca</td></tr>
+    <tr><td><span class="scr">T07</span> <b>Jogar (sheet do FAB)</b></td><td>As 4 portas: sessão · partida · match · reserva</td><td>Modo de sessão, partida 1/3, match, quadra</td></tr>
+    <tr><td><span class="scr">T24</span> <b>Busca global</b> <span class="nova">NOVA</span></td><td>Recentes + segmento + resultados mistos (jogador, quadra, clube, partida)</td><td>Jogador, quadra, clube, partidas</td></tr>
+  </table></div>
+
+  <div class="ghead"><h3>Registrar &amp; pontuar</h3><span class="t-num">9 telas · F3 + F4</span></div>
+  <div class="tblwrap"><table>
+    <tr><th>Tela</th><th>O que entrega</th><th>Navega para</th></tr>
+    <tr><td><span class="scr">T08b</span> <b>Modo de sessão</b> <span class="nova">NOVA</span></td><td>Timer · contador · Apple Saúde (1 toque) · manual + tipo (4) + teto anti-farm</td><td>Sessão / recompensa / manual</td></tr>
+    <tr><td><span class="scr">T08</span> <b>Sessão em andamento</b></td><td>Timer ao vivo, contador de saques, missão ativa</td><td>Recompensa</td></tr>
+    <tr><td><span class="scr">T08c</span> <b>Sessão retroativa</b> <span class="nova">NOVA</span></td><td>Quando · duração · tipo (4) · local; aviso XP-nunca-rating</td><td>Recompensa</td></tr>
+    <tr><td><span class="scr">T09</span> <b>Recompensa</b></td><td>Momento de dopamina: XP, Bolinhas, Sequência, liga</td><td>Compartilhar / home</td></tr>
+    <tr><td><span class="scr">T25</span> <b>Compartilhar resultado</b> <span class="nova">NOVA</span></td><td>Card 9:16 com marca CEROL → Stories · feed do clube · galeria</td><td>Home</td></tr>
+    <tr><td><span class="scr">T10·10b·10c</span> <b>Registrar partida 1–3/3</b></td><td>Competidor (QR p/ quem não tem app) → onde/quando/piso → placar por sets</td><td>Envio p/ validação</td></tr>
+    <tr><td><span class="scr">T11</span> <b>Confirmar placar</b></td><td>Validação bilateral em 48h: confirmar ou contestar</td><td>Home / re-submissão</td></tr>
+  </table></div>
+
+  <div class="ghead"><h3>Explorar &amp; social</h3><span class="t-num">5 telas · F6 + F7 · todas novas</span></div>
+  <div class="tblwrap"><table>
+    <tr><th>Tela</th><th>O que entrega</th><th>Navega para</th></tr>
+    <tr><td><span class="scr">T06b</span> <b>Partidas abertas</b> <span class="nova">NOVA</span></td><td>Matches no raio com "Topo!", vaga em duplas, seu match com candidatos</td><td>Perfil do criador</td></tr>
+    <tr><td><span class="scr">T06c</span> <b>Perfil público</b> <span class="nova">NOVA</span></td><td>Rating + selo verificado, stats, últimos jogos, em comum · Desafiar/Seguir</td><td>Abrir match</td></tr>
+    <tr><td><span class="scr">T06d</span> <b>Clubes</b> <span class="nova">NOVA</span></td><td>Ranking entre clubes (soma de PL) + clubes para entrar (5–50 membros)</td><td>Detalhe do clube</td></tr>
+    <tr><td><span class="scr">T06e</span> <b>Clube Saibro</b> <span class="nova">NOVA</span></td><td>Ranking interno + feed com kudos "Bola dentro!"</td><td>Perfil de membro</td></tr>
+    <tr><td><span class="scr">T26</span> <b>Chat do match</b> <span class="nova">NOVA</span></td><td>Compromisso no topo, bubbles, atalhos rápidos</td><td>Quadra (remarcar)</td></tr>
+  </table></div>
+
+  <div class="ghead"><h3>Competição</h3><span class="t-num">7 telas · Ligas</span></div>
+  <div class="tblwrap"><table>
+    <tr><th>Tela</th><th>O que entrega</th><th>Navega para</th></tr>
+    <tr><td><span class="scr">T12</span> <b>Liga semanal</b></td><td>Divisão Ouro, coorte de 30, zonas de subida/queda</td><td>Perfil</td></tr>
+    <tr><td><span class="scr">T12b</span> <b>Ranking da cidade</b> <span class="nova">NOVA</span></td><td>Top 3 + sua vizinhança (23º), por rating validado, Tênis/Beach</td><td>Perfil público</td></tr>
+    <tr><td><span class="scr">T13</span> <b>Trilhas</b></td><td>Skill tree: 6 fundamentos × 10 estágios</td><td>Estágio</td></tr>
+    <tr><td><span class="scr">T13b</span> <b>Estágio da trilha</b> <span class="nova">NOVA</span></td><td>Missão mensurável (14/20) + validação em camadas (auto · vídeo ×1,5 · professor ×2 → B2B)</td><td>Registrar tentativa</td></tr>
+    <tr><td><span class="scr">T14</span> <b>Desafio do mês</b></td><td>Desafio Saibro: meta de volume + medalha física</td><td>Inscrição</td></tr>
+    <tr><td><span class="scr">T14b</span> <b>Inscrição no desafio</b> <span class="nova">NOVA</span></td><td>Endereço de entrega + Pix/cartão/Apple Pay · R$ 79 · reembolso até o início</td><td>Desafio</td></tr>
+    <tr><td><span class="scr">T15</span> <b>Temporada</b></td><td>Trilha de recompensas 10–12 semanas → Finals presencial</td><td>—</td></tr>
+  </table></div>
+
+  <div class="ghead"><h3>Loja &amp; conta</h3><span class="t-num">14 telas</span></div>
+  <div class="tblwrap"><table>
+    <tr><th>Tela</th><th>O que entrega</th><th>Navega para</th></tr>
+    <tr><td><span class="scr">T16·16b</span> <b>Loja + Visual</b></td><td>Cupons (500 Bolinhas = R$ 10) · cosméticos · desafios · artigos</td><td>Produto, desafio, inscrição</td></tr>
+    <tr><td><span class="scr">T21·22·23</span> <b>Produto → Checkout → Venda</b></td><td>Compra no gateway com recibo e rastreio</td><td>Loja / match</td></tr>
+    <tr><td><span class="scr">T17</span> <b>Perfil</b> <span class="nova">+3 entradas</span></td><td>Cartão de Jogador + lista de conta completa (8 destinos)</td><td>Todas as subtelas</td></tr>
+    <tr><td><span class="scr">T17b</span> <b>Estatísticas</b> <span class="nova">NOVA</span></td><td>Evolução do rating (sparkline), vitórias por piso, Sequência, dias jogados</td><td>Card de compartilhar</td></tr>
+    <tr><td><span class="scr">T17c</span> <b>Conquistas</b> <span class="nova">NOVA</span></td><td>Emblemas (3 conquistados + 3 bloqueados com critério) + medalha física</td><td>—</td></tr>
+    <tr><td><span class="scr">T17d</span> <b>Assinatura Pro</b> <span class="nova">NOVA</span></td><td>4 benefícios · R$ 19,90/mês · anual −20% · downgrade suave</td><td>Perfil</td></tr>
+    <tr><td><span class="scr">T17e</span> <b>Clubes e amigos</b> <span class="nova">NOVA</span></td><td>Amigos com rating + Desafiar · seu clube · convite</td><td>Match, clube, jogador</td></tr>
+    <tr><td><span class="scr">T17f</span> <b>Configurações</b> <span class="nova">NOVA</span></td><td>Notificações · privacidade/LGPD (fuzzing ~500 m, baixar dados, apagar conta) · unidades/idioma</td><td>Suporte, login (sair)</td></tr>
+    <tr><td><span class="scr">T17g</span> <b>Visual do atleta</b> <span class="nova">NOVA</span></td><td>Troca de personagem + tom de pele + molduras (Finals bloqueada)</td><td>Perfil</td></tr>
+    <tr><td><span class="scr">T18</span> <b>Pagamentos</b></td><td>Cartões tokenizados + histórico/recibos</td><td>Adicionar cartão</td></tr>
+    <tr><td><span class="scr">T18b</span> <b>Adicionar cartão</b> <span class="nova">NOVA</span></td><td>Sheet do gateway (PCI fora do app) + biometria</td><td>Pagamentos</td></tr>
+  </table></div>
+
+  <div class="ghead"><h3>Quadra, match &amp; suporte</h3><span class="t-num">4 telas · F5 + F6</span></div>
+  <div class="tblwrap"><table>
+    <tr><th>Tela</th><th>O que entrega</th><th>Navega para</th></tr>
+    <tr><td><span class="scr">T19</span> <b>Reservar quadra</b></td><td>Agenda de slots + pagamento Pix/cartão + lembretes</td><td>Home</td></tr>
+    <tr><td><span class="scr">T19b</span> <b>Check-in na quadra</b> <span class="nova">NOVA</span></td><td>Mapa + geofence 100 m + reserva de hoje → <b>+300 XP presencial</b></td><td>Home</td></tr>
+    <tr><td><span class="scr">T20</span> <b>Abrir match</b></td><td>Tipo · nível-alvo (±0.5) · local/raio · janela · visibilidade</td><td>Explorar (publicado)</td></tr>
+    <tr><td><span class="scr">T27</span> <b>Ajuda</b> <span class="nova">NOVA</span></td><td>FAQ (rating, contestação, reembolso, LGPD) + denúncia comunitária + suporte</td><td>Configurações</td></tr>
+  </table></div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-cap"><span class="n">03</span><h2 class="t-h2">COBERTURA DO ORGANOGRAMA</h2></div>
+  <div class="cards">
+    <div class="card">
+      <span class="t-label">Coberto — 100% do MVP</span>
+      <ul class="oklist">
+        <li>Onboarding F1 completo (7 passos, gate 18+, geo, permissões)</li>
+        <li>Os 7 blocos da home (spec F2) — missões e trilha abaixo da dobra</li>
+        <li>As 4 portas do FAB com todos os modos de registro</li>
+        <li>Explorar inteiro: mapa, quadras, partidas, jogadores, clubes</li>
+        <li>Ligas: semanal, cidade, trilhas + estágio, desafios + inscrição, temporada</li>
+        <li>Loja: cupons, cosméticos, medalha, vitrine + compra completa</li>
+        <li>Perfil: as 8 entradas navegando para telas reais</li>
+        <li>Transversais: notificações, busca, share, chat, suporte/denúncia</li>
+        <li>Check-in geofence (+300 XP) — a maior recompensa agora tem interface</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="t-label">Segue fora do MVP — por decisão de produto</span>
+      <ul class="oklist">
+        <li class="warn">Marketplace com split e serviços (aulas, encordoamento) — <span class="ph2">fase 2</span>; vitrine e compra já desenhadas</li>
+        <li class="warn">Fase juvenil (&lt;18 com consentimento parental) — só a tela de espera citada no F1</li>
+        <li class="warn">Matchmaking v2 (sugestões ranqueadas) — v1 por notificação está no fluxo</li>
+        <li class="warn">Criar clube (formulário) — entrada existe com aviso; detalhe fica para quando o social provar tração</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-cap"><span class="n">04</span><h2 class="t-h2">MOTION — seção 19 do ds.css</h2><span class="t-small t-muted">só transform/opacity · 150–320ms · easing assinatura · reduced-motion zera tudo</span></div>
+  <div class="tblwrap"><table>
+    <tr><th>Momento</th><th>Mecânica</th><th>Aplicação</th></tr>
+    <tr><td><b>Toque</b></td><td>Tudo acionável comprime (scale .96–.985) em 150ms</td><td>Automático em 14 componentes</td></tr>
+    <tr><td><b>FAB Jogar</b></td><td>Anel acid "quica" a cada 3s</td><td>Automático — o item mais vivo da interface</td></tr>
+    <tr><td><b>Sua vez de jogar</b></td><td>Nó atual da trilha pulsa (m-hot)</td><td>Automático em .c-path i.hot</td></tr>
+    <tr><td><b>Notificação</b></td><td>Dot do sino respira (m-dot)</td><td>Automático</td></tr>
+    <tr><td><b>Troca de tela</b></td><td>Blocos sobem em cascata (40ms/item)</td><td>Automático no protótipo</td></tr>
+    <tr><td><b>Progresso</b></td><td>Barra preenche da esquerda (m-fill)</td><td>Opt-in: missões da home, estágio da trilha</td></tr>
+    <tr><td><b>Celebração</b></td><td>Overshoot de medalha (m-burst)</td><td>Opt-in: conquistas, inscrição no desafio</td></tr>
+    <tr><td><b>Entradas pontuais</b></td><td>m-rise · m-pop · m-stag (cascata)</td><td>Opt-in: listas-herói (notificações, matches, modos)</td></tr>
+  </table></div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-cap"><span class="n">05</span><h2 class="t-h2">QUALIDADE — o que foi verificado</h2></div>
+  <div class="cards">
+    <div class="card">
+      <span class="t-label">Auditoria mecânica (script)</span>
+      <ul class="oklist">
+        <li>52/52 telas: toda classe usada existe no ds.css</li>
+        <li>Todo ícone existe no sprite · zero emoji como ícone</li>
+        <li>Vocabulário: Sequência/emblema/notificação em 100% da UI</li>
+        <li>Ids únicos, estrutura padrão, imagens existentes</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="t-label">Revisão adversarial (2 agentes)</span>
+      <ul class="oklist">
+        <li>16 defeitos confirmados → 16 corrigidos</li>
+        <li>Contraste: posições de liga em painel escuro viraram regra do DS</li>
+        <li>Chips em painel escuro: 2 novas regras, styles inline removidos</li>
+        <li>Spec: 4 tipos de sessão, 1 CTA acid/tela, placares e datas consistentes</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="t-label">Navegação (protótipo dirigido)</span>
+      <ul class="oklist">
+        <li>45+ transições verificadas clique a clique — 100% OK</li>
+        <li>Onboarding → home → check-in → sessão → recompensa → share</li>
+        <li>Perfil ↔ 8 subtelas, Ligas com 5 abas, Loja → inscrição</li>
+        <li>Voltar por chevron/x/Esc em todas as subtelas</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="t-label">Checklist ui-ux-pro-max</span>
+      <ul class="oklist">
+        <li>Feedback de toque &lt;100ms · micro-interações 150–320ms</li>
+        <li>prefers-reduced-motion zera animações globalmente</li>
+        <li>Alvos de toque ≥44pt (botões, opts, chips de ação)</li>
+        <li>Ícones SVG de família única (sprite próprio, stroke 2)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-cap"><span class="n">06</span><h2 class="t-h2">ONDE MEXER</h2></div>
+  <div class="tblwrap"><table>
+    <tr><th>Arquivo</th><th>Papel</th></tr>
+    <tr><td class="mono">design/ds.css</td><td><b>Fonte única de verdade</b> — 20 seções; edite aqui e as 52 telas herdam</td></tr>
+    <tr><td class="mono">design/screens/*.html</td><td>52 fragmentos, um por tela, só compõem componentes</td></tr>
+    <tr><td class="mono">design/build.py</td><td>Regenera galeria, protótipo e versões de publicação — <span class="mono">python3 build.py</span></td></tr>
+    <tr><td class="mono">design/prototipo.js</td><td>MAPA de navegação (156 regras) — regra = seletor + texto + ação</td></tr>
+    <tr><td class="mono">design/telas.html · prototipo.html</td><td>Galeria e protótipo navegável (servidor local: launch <span class="mono">design-static</span>, porta 8902)</td></tr>
+    <tr><td class="mono">design/components.html · DIRECAO.md</td><td>Biblioteca + direção (agora com Motion e padrão de tab bar)</td></tr>
+  </table></div>
+</section>
+
+<footer>CEROL · relatório gerado a partir de <code>produto/design/</code> · organograma completo no artifact "CEROL · Organograma do App" (badges Txx atualizados) · skill ui-ux-pro-max aplicada na direção de motion e no checklist de entrega.</footer>
+
+</div>
+
+</body>
+</html>
