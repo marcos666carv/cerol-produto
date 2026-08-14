@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CEROL · Teste de Navegação — Roteiro</title>
+<style>
+  :root{--saibro:#c8cbc3;--ink:#0b120c;--lime:#99cc00;--acid:#ccff33;--pine:#12301f;--muted:#565d55;--court:#2e5ce6}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Archivo",ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:#eceee9;color:var(--ink);line-height:1.55;padding:32px 20px 64px}
+  .wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+  .label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  h1{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.05;text-transform:uppercase}
+  h2{font-size:15px;font-weight:800;margin-bottom:6px}
+  .tile{background:#fff;border-radius:20px;padding:18px 20px}
+  .tile--pine{background:var(--pine);color:#fff}
+  .tile--acid{background:var(--acid)}
+  .num{font-family:ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+  .chip{display:inline-block;font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:600;background:var(--acid);padding:4px 12px;border-radius:999px}
+  .missao{display:flex;gap:14px;padding:12px 0;border-top:1px solid rgba(11,18,12,.12);align-items:flex-start}
+  .missao:first-of-type{border-top:none}
+  .missao .n{font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;background:var(--ink);color:var(--acid);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none;margin-top:2px}
+  .missao b{display:block;font-size:14.5px}
+  .missao span{font-size:12.5px;color:var(--muted)}
+  ul{padding-left:18px;font-size:13.5px}
+  li{margin:4px 0}
+  .q{font-size:13.5px;padding:10px 0;border-top:1px solid rgba(11,18,12,.12)}
+  .q:first-of-type{border-top:none}
+  .dica{font-size:12.5px;color:rgba(255,255,255,.85)}
+  a{color:var(--court)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="label">Cerol · Protótipo de tênis gamificado</span>
+  <h1>Obrigado por<br>testar! 🎾</h1>
+  <p style="max-width:56ch">Você vai navegar por um <b>protótipo</b> do app CEROL — tudo é clicável, mas os dados são fictícios. Não existe resposta certa: queremos ver <b>onde o app é óbvio e onde ele confunde</b>. Leva uns 10 minutos.</p>
+
+  <div class="tile tile--pine">
+    <h2 style="color:#fff">Como abrir</h2>
+    <p class="dica">Dê duplo clique no arquivo <span class="num">cerol-prototipo.html</span> — abre em qualquer navegador, sem internet. Funciona no celular também (abra o arquivo pelo navegador).</p>
+    <p class="dica" style="margin-top:8px">Se se perder: <b>Esc</b> (ou a seta ← no topo) volta; o botão <b>☰</b> lista todas as telas. Alguns botões mostram um aviso preto embaixo — é o app "respondendo".</p>
+  </div>
+
+  <div class="tile">
+    <h2>Suas 8 missões</h2>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:8px">Tente completar cada uma sem ajuda. Se empacar, anote onde foi e pule para a próxima (☰ ajuda a se achar).</p>
+    <div class="missao"><span class="n">1</span><div><b>Crie sua conta e monte seu atleta</b><span>entre no app e escolha o personagem que combina com você</span></div></div>
+    <div class="missao"><span class="n">2</span><div><b>Descubra sua posição na liga desta semana</b><span>e quantos pontos faltam para subir</span></div></div>
+    <div class="missao"><span class="n">3</span><div><b>Registre uma sessão de treino</b><span>comece e encerre um treino — repare no que você ganha</span></div></div>
+    <div class="missao"><span class="n">4</span><div><b>Registre uma partida contra o Pedro</b><span>placar 6-4 e 6-3, jogada hoje às 19h no Clube Saibro</span></div></div>
+    <div class="missao"><span class="n">5</span><div><b>O Pedro te mandou um placar — responda</b><span>encontre onde confirmar (ou contestar) o resultado</span></div></div>
+    <div class="missao"><span class="n">6</span><div><b>Compre a camiseta "Bola Dentro" tamanho G</b><span>e finalize o pagamento</span></div></div>
+    <div class="missao"><span class="n">7</span><div><b>Reserve uma quadra no Clube Saibro</b><span>sexta às 19h</span></div></div>
+    <div class="missao"><span class="n">8</span><div><b>Abra um match público</b><span>simples, para sábado de manhã, perto de você</span></div></div>
+  </div>
+
+  <div class="tile tile--acid">
+    <h2>Depois de testar, responda</h2>
+    <div class="q"><b>1.</b> Em qual missão você se perdeu ou hesitou? Onde exatamente?</div>
+    <div class="q"><b>2.</b> O menu de baixo (Início · Explorar · 🎾 · Ligas · Loja) fez sentido? O que você esperava em cada um?</div>
+    <div class="q"><b>3.</b> Ficou claro como os pontos funcionam (XP, Pontos de Liga, Bolinhas)?</div>
+    <div class="q"><b>4.</b> Alguma tela pareceu "não ser do mesmo app"?</div>
+    <div class="q"><b>5.</b> De 0 a 10: que nota você dá para se achar dentro do app?</div>
+    <div class="q"><b>6.</b> O que você abriria primeiro se esse app existisse hoje?</div>
+  </div>
+
+  <div class="tile">
+    <h2>Como enviar suas respostas</h2>
+    <p style="font-size:13.5px">Grave um áudio, escreva no WhatsApp ou mande e-mail para <a href="mailto:marcos@cerol.co?subject=Teste%20CEROL">marcos@cerol.co</a>. Se puder, diga também qual missão foi a mais fácil e a mais difícil.</p>
+  </div>
+
+  <p class="label" style="text-align:center;margin-top:12px">CEROL · protótipo de navegação · dados fictícios · obrigado! 🟢</p>
+</div>
+</body>
+</html>

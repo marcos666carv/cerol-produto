@@ -1,0 +1,362 @@
+/* ============================================================
+   CEROL · DS de telas mobile — "ON COURT · Court Mode"
+   Fonte única de verdade dos componentes. Telas em screens/*
+   compõem SOMENTE classes daqui (prefixo c-, t-, u-).
+   Direção: ver DIRECAO.md
+   ============================================================ */
+
+/* ---------- 1. TOKENS ---------- */
+:root{
+  /* paleta ON COURT */
+  --saibro:#c8cbc3;        /* fundo do app (DAY) */
+  --saibro-2:#bcc0b8;      /* fundo rebaixado / tiles flat */
+  --card:#ffffff;
+  --ink:#0b120c;
+  --lime:#99cc00;          /* dados positivos, progresso */
+  --acid:#ccff33;          /* ação primária (botões, FAB), highlight, celebração */
+  --clay:#c4553a;          /* negativo / alerta (derrota nunca é punição) */
+  /* extensões Court Mode (refs tennis-graphics) */
+  --court:#2e5ce6;         /* azul de quadra — social, links, água */
+  --pine:#12301f;          /* painel de dados escuro (charts em lime) */
+  --pine-2:#1b4029;
+  /* neutros derivados */
+  --lime-deep:#7a9d00;     /* lime legível sobre claro (ícones/moeda) */
+  --pos:#4d7a00;           /* delta positivo em texto */
+  --muted:#565d55;
+  --line:rgba(11,18,12,.14);
+  --line-onink:rgba(255,255,255,.16);
+  /* tipografia */
+  --font:"Archivo",ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  /* raios: pill para ações, r3 para tiles (linguagem bento), r2 interno */
+  --r2:12px; --r3:20px; --pill:999px;
+  /* espaçamento base 4 */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:20px; --s6:24px;
+  /* motion assinatura ON COURT */
+  --ease:cubic-bezier(.625,.05,0,1);
+}
+
+/* ---------- 2. BASE ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+.ds{font-family:var(--font);color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased}
+/* :where mantém especificidade baixa — cor de componente sempre vence o reset de link */
+.ds :where(a){color:inherit;text-decoration:none}
+.ds :focus-visible{outline:2px solid var(--court);outline-offset:2px;border-radius:4px}
+.ic{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic--s{width:16px;height:16px}.ic--l{width:28px;height:28px}
+@media (prefers-reduced-motion: reduce){.ds *{animation:none!important;transition:none!important}}
+
+/* ---------- 3. TIPO ---------- */
+.t-display{font-size:34px;font-weight:800;letter-spacing:-.03em;line-height:1;text-transform:uppercase}
+.t-h1{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.t-h2{font-size:18px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.t-h3{font-size:15px;font-weight:700}
+.t-body{font-size:14px}
+.t-small{font-size:12.5px}
+.t-micro{font-size:11px}
+.t-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.t-num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.t-num-xl{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:32px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.t-num-l{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.t-muted{color:var(--muted)}
+.t-pos{color:var(--pos)}
+.t-ball{color:var(--lime-deep)}
+.t-onink .t-label,.t-onink .t-muted{color:rgba(255,255,255,.55)}
+
+/* ---------- 4. UTILITÁRIOS DE LAYOUT ---------- */
+.u-flex{display:flex;align-items:center;gap:var(--s3)}
+.u-between{display:flex;align-items:center;justify-content:space-between;gap:var(--s3)}
+.u-col{display:flex;flex-direction:column;gap:var(--s3)}
+.u-grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.u-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s3)}
+.u-gap1{gap:var(--s1)}.u-gap2{gap:var(--s2)}.u-gap4{gap:var(--s4)}
+.u-center{display:flex;align-items:center;justify-content:center}
+.u-grow{flex:1;min-width:0}
+.u-right{margin-left:auto}
+.u-wrap{flex-wrap:wrap}
+
+/* ---------- 5. FRAME DE TELA ---------- */
+.c-phone{width:390px;background:var(--saibro);border:3px solid var(--ink);border-radius:44px;overflow:hidden;display:flex;flex-direction:column;height:844px;flex:none;position:relative}
+.c-status{display:flex;justify-content:space-between;align-items:center;padding:14px 24px 4px;font-family:var(--mono);font-size:12px;font-weight:600}
+.c-status .not{width:90px;height:22px;background:var(--ink);border-radius:var(--pill);margin:0 auto;position:absolute;left:50%;transform:translateX(-50%);top:10px}
+.c-screen{flex:1;display:flex;flex-direction:column;gap:8px;padding:10px 14px;overflow:hidden;min-height:0}
+.c-screen>*{flex:none} /* nunca deixar flex-shrink amassar tiles */
+.c-screen--flush{padding:0;gap:0}
+
+/* ---------- 6. APP BAR ---------- */
+.c-appbar{display:flex;align-items:center;gap:var(--s2);padding:4px 0}
+.c-appbar .c-chip{padding:5px 10px}
+.c-avatar{position:relative;width:44px;height:44px;border-radius:50%;background:conic-gradient(var(--lime) var(--p,72%),rgba(11,18,12,.15) 0);display:grid;place-items:center;flex:none}
+.c-avatar__in{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--acid);display:grid;place-items:center;font-size:12px;font-weight:800;overflow:hidden}
+.c-avatar--l{width:84px;height:84px}.c-avatar--l .c-avatar__in{width:72px;height:72px;font-size:24px}
+.c-avatar__lvl{position:absolute;bottom:-4px;right:-4px;background:var(--acid);border:2px solid var(--saibro);border-radius:var(--pill);font-family:var(--mono);font-size:9.5px;font-weight:700;padding:1px 6px}
+.c-bell{position:relative;width:40px;height:40px;border-radius:50%;background:var(--card);display:grid;place-items:center}
+.c-bell .c-dot{position:absolute;top:8px;right:9px}
+
+/* ---------- 7. NAVEGAÇÃO INFERIOR ---------- */
+.c-tabbar{display:flex;align-items:flex-end;justify-content:space-around;background:var(--card);padding:8px;border-radius:var(--r3) var(--r3) 40px 40px;margin-top:auto}
+.c-tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:56px;padding:6px 4px;border-radius:var(--r2)}
+.c-tab.is-on{color:var(--ink);background:color-mix(in oklab,var(--acid) 45%,transparent)}
+.c-fab{width:58px;height:58px;border-radius:50%;background:var(--acid);color:var(--ink);display:grid;place-items:center;margin-top:-38px;border:4px solid var(--saibro);box-shadow:0 0 0 1px var(--line)}
+.c-fab .ic{width:26px;height:26px}
+
+/* ---------- 8. TILES (bento) ---------- */
+.c-tile{background:var(--card);border-radius:var(--r3);padding:12px 14px;display:flex;flex-direction:column;gap:var(--s2);min-width:0}
+.c-tile--ink{background:var(--ink);color:#fff}
+.c-tile--pine{background:var(--pine);color:#fff}
+.c-tile--lime{background:var(--lime);color:var(--ink)}
+.c-tile--acid{background:var(--acid);color:var(--ink)}
+.c-tile--court{background:var(--court);color:#fff}
+.c-tile--flat{background:color-mix(in oklab,var(--card) 45%,transparent)}
+.c-tile--outline{background:transparent;border:1.5px dashed var(--line)}
+.c-tile--center{align-items:center;text-align:center}
+.c-tile__cap{display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
+.c-tile--ink .t-label,.c-tile--pine .t-label,.c-tile--court .t-label{color:rgba(255,255,255,.55)}
+.c-tile--ink .t-muted,.c-tile--pine .t-muted,.c-tile--court .t-muted{color:rgba(255,255,255,.6)}
+.c-tile--ink .c-row,.c-tile--pine .c-row{border-color:var(--line-onink)}
+
+/* ---------- 9. STAT / NÚMEROS ---------- */
+.c-stat{display:flex;flex-direction:column;gap:6px}
+.c-stat__v{display:flex;align-items:baseline;gap:8px}
+.c-delta{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 8px;border-radius:var(--pill);background:color-mix(in oklab,var(--lime) 30%,transparent)}
+.c-delta.is-down{background:color-mix(in oklab,var(--clay) 22%,transparent)}
+.c-tile--pine .c-delta,.c-tile--ink .c-delta{background:rgba(204,255,51,.18);color:var(--acid)}
+
+/* ---------- 10. CHIPS / BADGES ---------- */
+.c-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px;font-weight:600;background:var(--card);padding:6px 12px;border-radius:var(--pill);white-space:nowrap}
+.c-chip--ink{background:var(--ink);color:var(--acid)}
+.c-chip--lime{background:var(--lime);color:var(--ink)}
+.c-chip--acid{background:var(--acid);color:var(--ink)}
+.c-chip--court{background:var(--court);color:#fff}
+.c-chip--ghost{background:transparent;border:1.5px solid var(--line)}
+.c-tile--ink .c-chip--ghost,.c-tile--pine .c-chip--ghost,.c-banner .c-chip--ghost,.c-story .c-chip--ghost{color:#fff;border-color:var(--line-onink)}
+/* chip padrão (card branco) dentro de painel escuro não herda o texto branco */
+.c-tile--ink .c-chip:not(.c-chip--ink):not(.c-chip--court):not(.c-chip--ghost),.c-tile--pine .c-chip:not(.c-chip--ink):not(.c-chip--court):not(.c-chip--ghost){color:var(--ink)}
+.c-chip .ic{width:14px;height:14px}
+.c-dot{width:8px;height:8px;border-radius:50%;background:var(--clay);flex:none}
+.c-dot--lime{background:var(--lime)}.c-dot--acid{background:var(--acid)}.c-dot--court{background:var(--court)}
+
+/* ---------- 11. BOTÕES ---------- */
+.c-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font);font-size:14px;font-weight:800;letter-spacing:.01em;background:var(--acid);color:var(--ink);border:none;border-radius:var(--pill);padding:14px 22px;cursor:pointer;transition:transform .18s var(--ease),background .25s var(--ease)}
+.c-btn:active{transform:scale(.955)}
+.c-btn--ink{background:var(--ink);color:var(--acid)}
+.c-btn--ghost{background:transparent;border:1.5px solid var(--ink)}
+.c-btn--card{background:var(--card)}
+.c-btn--block{width:100%}
+.c-btn--s{padding:9px 16px;font-size:12.5px}
+.c-btn .ic{width:18px;height:18px}
+
+/* ---------- 12. PROGRESSO (linguagem: ticks = bolinhas) ---------- */
+.c-bar{height:8px;background:rgba(11,18,12,.13);border-radius:var(--pill);overflow:hidden;width:100%}
+.c-bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--lime-deep),var(--lime) 55%,var(--acid));border-radius:var(--pill)}
+.c-bar--acid>i{background:linear-gradient(90deg,var(--lime),var(--acid))}
+.c-tile--pine .c-bar,.c-tile--ink .c-bar{background:rgba(255,255,255,.14)}
+.c-ticks{display:flex;gap:4px;align-items:center}
+.c-ticks i{width:9px;height:9px;border-radius:50%;background:rgba(11,18,12,.15)}
+.c-ticks i.on{background:var(--lime)}
+.c-ticks i.hot{background:var(--acid)}
+.c-tile--pine .c-ticks i,.c-tile--ink .c-ticks i{background:rgba(255,255,255,.16)}
+.c-tile--pine .c-ticks i.on,.c-tile--ink .c-ticks i.on{background:var(--lime)}
+.c-ticks--bars i{width:5px;height:16px;border-radius:3px}
+.c-ring{--v:70%;width:74px;height:74px;border-radius:50%;background:conic-gradient(var(--lime) var(--v),rgba(11,18,12,.13) 0);display:grid;place-items:center;flex:none}
+.c-ring>span{width:58px;height:58px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center}
+.c-tile--pine .c-ring>span{background:var(--pine)}
+.c-tile--ink .c-ring>span{background:var(--ink)}
+/* mini bar chart: alturas via style="--h:60%" */
+.c-bars{display:flex;align-items:flex-end;gap:6px;height:64px}
+.c-bars i{flex:1;height:var(--h,40%);background:rgba(11,18,12,.18);border-radius:6px 6px 3px 3px}
+.c-bars i.on{background:var(--lime)}
+.c-bars i.hot{background:var(--acid)}
+.c-tile--pine .c-bars i,.c-tile--ink .c-bars i{background:rgba(255,255,255,.15)}
+.c-tile--pine .c-bars i.on{background:var(--lime)}
+/* sparkline SVG: use stroke=currentColor + classe */
+.c-spark{width:100%;height:44px;color:var(--lime)}
+.c-spark .fim{fill:var(--acid)}
+
+/* ---------- 13. LISTAS / LINHAS ---------- */
+.c-list{display:flex;flex-direction:column}
+.c-row{display:flex;align-items:center;gap:var(--s3);padding:8px 0;border-top:1px solid var(--line)}
+.c-row:first-child{border-top:none}
+.c-row__lead{width:38px;height:38px;border-radius:var(--r2);background:color-mix(in oklab,var(--saibro) 55%,transparent);display:grid;place-items:center;flex:none}
+.c-row__lead--ball{background:var(--acid);border-radius:50%}
+.c-row__body{flex:1;min-width:0}
+.c-row__body b{display:block;font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-row__body span{display:block;font-size:11.5px;color:var(--muted)}
+.c-tile--pine .c-row__body span,.c-tile--ink .c-row__body span{color:rgba(255,255,255,.55)}
+.c-row__end{text-align:right;flex:none}
+.c-res{font-family:var(--mono);font-weight:800;font-size:12px;padding:3px 8px;border-radius:6px}
+.c-res--v{background:color-mix(in oklab,var(--lime) 35%,transparent)}
+.c-res--d{background:color-mix(in oklab,var(--clay) 20%,transparent)}
+.c-res--l{font-size:22px;padding:6px 16px} /* resultado-herói (card de stories) */
+/* ícone-líder de linha em painéis escuros lê em acid (mesma regra do banner) */
+.c-tile--ink .c-row>.ic,.c-tile--pine .c-row>.ic{color:var(--acid)}
+
+/* ---------- 14. LIGA ---------- */
+.c-lrow{display:flex;align-items:center;gap:10px;padding:5px 10px;border-radius:var(--r2)}
+.c-lrow .pos{font-family:var(--mono);font-size:12px;font-weight:700;width:22px;color:var(--muted)}
+.c-lrow .pl{font-family:var(--mono);font-size:12.5px;font-weight:700;margin-left:auto}
+.c-lrow.is-you{background:var(--acid);color:var(--ink)}
+.c-lrow.is-you .pos{color:var(--ink)}
+.c-tile--pine .c-lrow .pos,.c-tile--ink .c-lrow .pos{color:rgba(255,255,255,.55)}
+.c-lrow .c-face{width:28px;height:28px;font-size:10px}
+.c-zone{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px 10px}
+.c-zone::before,.c-zone::after{content:"";height:1px;background:var(--line);flex:1}
+.c-zone--up{color:#4d7a00}.c-zone--down{color:var(--clay)}
+.c-face{width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--acid);display:grid;place-items:center;font-size:11px;font-weight:800;flex:none}
+.c-face--lime{background:var(--lime);color:var(--ink)}
+.c-face--court{background:var(--court);color:#fff}
+.c-face--clay{background:var(--clay);color:#fff}
+
+/* ---------- 15. FORM ---------- */
+.c-field{display:flex;flex-direction:column;gap:6px}
+.c-input{display:flex;align-items:center;gap:10px;background:var(--card);border:none;border-radius:var(--r2);padding:13px 14px;font-family:var(--font);font-size:14px;width:100%;color:var(--ink)}
+.c-input::placeholder{color:var(--muted)}
+.c-input--flat{background:color-mix(in oklab,var(--saibro) 45%,transparent)} /* input sobre card/sheet branco */
+.c-seg{display:flex;background:color-mix(in oklab,var(--card) 45%,transparent);border-radius:var(--pill);padding:4px;gap:2px}
+.c-seg>span{flex:1;text-align:center;font-size:12px;font-weight:700;padding:8px 10px;border-radius:var(--pill);color:var(--muted);white-space:nowrap}
+.c-seg>span.is-on{background:var(--ink);color:var(--acid)}
+.c-opt{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:var(--r2);padding:13px 14px}
+.c-opt.is-on{outline:2px solid var(--ink);background:var(--acid)}
+.c-opt>.ic:first-child{color:var(--court)} /* ícone-líder das opções em azul de quadra */
+.c-toggle{width:44px;height:26px;border-radius:var(--pill);background:rgba(11,18,12,.2);position:relative;flex:none}
+.c-toggle::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--card);transition:left .2s var(--ease)}
+.c-toggle.is-on{background:var(--lime)}
+.c-toggle.is-on::after{left:21px}
+.c-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.c-slots--3{grid-template-columns:repeat(3,1fr)}
+.c-slot{font-family:var(--mono);font-size:12.5px;font-weight:700;text-align:center;padding:10px 4px;border-radius:var(--r2);background:var(--card)}
+.c-slot.is-on{background:var(--ink);color:var(--acid)}
+.c-slot.is-off{opacity:.35;text-decoration:line-through}
+
+/* ---------- 16. MAPA / QUADRA ---------- */
+.c-map{position:relative;border-radius:var(--r3);background:var(--court);overflow:hidden;min-height:220px}
+.c-map__lines{position:absolute;inset:14px;border:2px solid rgba(255,255,255,.4);border-radius:4px}
+.c-map__lines::before{content:"";position:absolute;inset:0 25%;border-left:2px solid rgba(255,255,255,.4);border-right:2px solid rgba(255,255,255,.4)}
+.c-map__lines::after{content:"";position:absolute;top:50%;left:0;right:0;border-top:2px solid rgba(255,255,255,.4)}
+.c-pin{position:absolute;display:grid;place-items:center;width:34px;height:34px;border-radius:50% 50% 50% 4px;background:var(--acid);color:var(--ink);transform:rotate(-8deg)}
+.c-pin .ic{width:16px;height:16px;transform:rotate(8deg)}
+.c-pin--ink{background:var(--ink);color:var(--acid)}
+.c-pin--card{background:var(--card);color:var(--ink)}
+/* quadra decorativa (fundo de tile) */
+.c-courtbg{position:relative;overflow:hidden}
+.c-courtbg::before{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:200px;border:2px solid rgba(11,18,12,.12);border-radius:6px;transform:rotate(14deg)}
+.c-tile--pine.c-courtbg::before,.c-tile--ink.c-courtbg::before{border-color:rgba(255,255,255,.12)}
+
+/* ---------- 16b. ATLETA (persona, tom de pele, card de perfil da home) ---------- */
+.c-persona{background:var(--card);border-radius:var(--r2);padding:8px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;border:2px solid transparent}
+.c-persona img{width:100%;height:108px;object-fit:contain}
+.c-persona b{font-size:11px;font-weight:700}
+.c-persona.is-on{border-color:var(--ink);background:var(--acid)}
+.c-swatches{display:flex;gap:10px}
+.c-swatch{width:34px;height:34px;border-radius:50%;border:2px solid rgba(11,18,12,.15)}
+.c-swatch.is-on{border-color:var(--ink);outline:3px solid var(--acid)}
+/* card de perfil da home (ref.: avatar central + ribbon + barra de stats) */
+.c-profile{position:relative;align-items:center;text-align:center;gap:6px}
+.c-ribbon{position:absolute;top:10px;right:10px;transform:rotate(3deg)}
+.c-pava{width:62px;height:62px;border-radius:50%;border:3px solid var(--acid);object-fit:cover;object-position:50% 8%;background:var(--card)}
+.c-statbar{display:flex;width:100%;background:rgba(255,255,255,.09);border-radius:var(--r2);padding:7px 4px;margin-top:2px}
+.c-statbar>div{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-width:0}
+.c-statbar>div+div{border-left:1px solid rgba(255,255,255,.15)}
+.c-statbar b{font-family:var(--mono);font-size:16px;line-height:1.1;display:block}
+.c-statbar small{display:block;font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;opacity:.55}
+
+/* ---------- 17. DIVERSOS ---------- */
+.c-banner{display:flex;align-items:center;gap:var(--s3);background:var(--ink);color:#fff;border-radius:var(--r3);padding:10px 14px}
+.c-banner b,.c-banner span{color:#fff}
+.c-banner b{display:block}
+.c-banner .ic{color:var(--acid)}
+.c-sheet{margin-top:auto;background:var(--card);border-radius:var(--r3) var(--r3) 40px 40px;padding:10px var(--s4) var(--s6)}
+.c-sheet__handle{width:44px;height:4px;border-radius:var(--pill);background:rgba(11,18,12,.2);margin:0 auto 14px}
+.c-scrim{background:rgba(11,18,12,.45)}
+.c-medal{width:64px;height:64px;border-radius:50%;background:var(--acid);display:grid;place-items:center;border:3px solid var(--ink)}
+.c-medal .ic{width:30px;height:30px}
+.c-path{display:flex;align-items:center;gap:0}
+.c-path>i{width:12px;height:12px;border-radius:50%;background:rgba(11,18,12,.18);flex:none}
+.c-path>i.on{background:var(--lime);width:16px;height:16px}
+.c-path>i.hot{background:var(--acid);outline:3px solid color-mix(in oklab,var(--acid) 40%,transparent)}
+.c-path>u{flex:1;height:2.5px;background:rgba(11,18,12,.18)}
+.c-path>u.on{background:var(--lime)}
+.c-step{display:flex;gap:10px;align-items:center;font-size:12px;font-weight:600}
+.c-step .n{font-family:var(--mono);font-size:10.5px;font-weight:700;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--acid);display:grid;place-items:center;flex:none}
+.c-price{display:flex;align-items:baseline;gap:4px}
+.c-price b{font-family:var(--mono);font-size:20px;font-weight:700}
+.c-price span{font-size:11px;color:var(--muted)}
+.c-kudos{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;background:color-mix(in oklab,var(--court) 14%,transparent);color:var(--court);padding:5px 10px;border-radius:var(--pill)}
+
+/* ---------- 17b. LOGIN COM MOTION (vídeo gerado — atletas jogando + zoom na bolinha) ---------- */
+.c-loginbg{position:absolute;inset:0;background:var(--pine);overflow:hidden}
+.c-loginbg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.c-loginbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,48,31,.75) 0%,rgba(18,48,31,.15) 32%,rgba(18,48,31,.15) 55%,rgba(18,48,31,.92) 82%,var(--pine) 100%)}
+@media (prefers-reduced-motion: reduce){.c-loginbg video{display:none}}
+/* tópicos lado a lado (ícone em cima, texto embaixo) — em acid direto no BG, sem box */
+.c-topic{color:var(--acid);padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;font-size:10.5px;font-weight:700;line-height:1.3}
+
+/* ---------- 19. MOTION — micro-interações assinatura ON COURT ----------
+   Regras: só transform/opacity (compositor), 150–320ms com --ease,
+   feedback de toque <100ms. Reduced-motion já zera tudo na seção 2. */
+:root{--t-fast:.15s;--t-base:.22s;--t-slow:.32s}
+/* feedback de toque: tudo que é acionável responde ao press */
+.c-chip,.c-opt,.c-slot,.c-seg>span,.c-persona,.c-swatch,.c-pin,.c-bell,.c-toggle,.c-emblem{transition:transform var(--t-fast) var(--ease),background var(--t-base) var(--ease),opacity var(--t-base) var(--ease)}
+.c-row,.c-lrow,.c-tab{transition:transform var(--t-fast) var(--ease),background var(--t-base) var(--ease)}
+.c-chip:active,.c-opt:active,.c-slot:active,.c-persona:active,.c-swatch:active,.c-pin:active,.c-bell:active,.c-emblem:active{transform:scale(.96)}
+.c-row:active,.c-lrow:active{transform:scale(.985)}
+.c-tab:active{transform:translateY(1px)}
+.c-fab{transition:transform var(--t-fast) var(--ease);position:relative}
+.c-fab:active{transform:scale(.92)}
+/* a bolinha do FAB "quica": anel acid respirando (transform+opacity, compositado) */
+@keyframes m-fabring{0%{transform:scale(.85);opacity:0}30%{opacity:.75}70%,100%{transform:scale(1.3);opacity:0}}
+.c-fab::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--acid);pointer-events:none;animation:m-fabring 3s var(--ease) infinite}
+/* nó atual da trilha pulsa — assinatura "sua vez de jogar" */
+@keyframes m-hot{50%{transform:scale(1.25)}}
+.c-path>i.hot{animation:m-hot 1.4s var(--ease) infinite}
+/* dot de notificação respira */
+@keyframes m-dot{50%{transform:scale(1.35);opacity:.7}}
+.c-bell .c-dot{animation:m-dot 2s var(--ease) infinite}
+/* entradas (usar nos momentos-chave; o protótipo aplica stagger na troca de tela) */
+@keyframes m-rise{from{opacity:0;transform:translateY(10px)}}
+@keyframes m-pop{from{opacity:0;transform:scale(.92)}}
+.m-rise{animation:m-rise var(--t-slow) var(--ease) both}
+.m-pop{animation:m-pop var(--t-slow) var(--ease) both}
+.m-stag>*{animation:m-rise var(--t-slow) var(--ease) both}
+.m-stag>*:nth-child(2){animation-delay:.05s}.m-stag>*:nth-child(3){animation-delay:.1s}
+.m-stag>*:nth-child(4){animation-delay:.15s}.m-stag>*:nth-child(5){animation-delay:.2s}
+.m-stag>*:nth-child(6){animation-delay:.25s}.m-stag>*:nth-child(7){animation-delay:.3s}
+.m-stag>*:nth-child(n+8){animation-delay:.35s}
+/* barra de progresso preenche da esquerda na entrada */
+@keyframes m-fill{from{transform:scaleX(0)}}
+.m-fill>i{transform-origin:left;animation:m-fill .6s var(--ease) both}
+/* celebração (recompensa/medalha): pop com overshoot */
+@keyframes m-burst{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+.m-burst{animation:m-burst .5s var(--ease) both}
+
+/* ---------- 20. SOCIAL & CHAT ---------- */
+.c-thread{display:flex;flex-direction:column;gap:8px}
+.c-bubble{max-width:80%;background:var(--card);border-radius:var(--r3) var(--r3) var(--r3) 6px;padding:10px 14px;font-size:13.5px;align-self:flex-start}
+.c-bubble--me{background:var(--ink);color:#fff;border-radius:var(--r3) var(--r3) 6px var(--r3);align-self:flex-end}
+.c-bubble small{display:block;font-family:var(--mono);font-size:9.5px;opacity:.5;margin-top:3px}
+/* conquistas: grade de emblemas */
+.c-emblems{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.c-emblem{background:var(--card);border-radius:var(--r2);padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.c-emblem .c-medal{width:44px;height:44px;border-width:2px}
+.c-emblem .c-medal .ic{width:20px;height:20px}
+.c-emblem b{font-size:10.5px;line-height:1.25}
+.c-emblem small{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.c-emblem.is-locked{opacity:.45}
+.c-emblem.is-locked .c-medal{background:var(--saibro-2);border-color:rgba(11,18,12,.25)}
+/* card de resultado p/ stories (preview 9:16) */
+.c-story{aspect-ratio:9/16;width:190px;margin:0 auto;background:var(--pine);color:#fff;border-radius:var(--r3);padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;position:relative;overflow:hidden}
+.c-story .t-label{color:rgba(255,255,255,.55)}
+.c-story.c-courtbg::before{border-color:rgba(255,255,255,.14)}
+
+/* ---------- 18. GALERIA (página telas.html — não é UI do app) ---------- */
+.g-page{background:#eceee9;min-height:100vh;padding:48px 24px}
+.g-wrap{max-width:1380px;margin:0 auto}
+.g-head{margin-bottom:36px}
+.g-group{margin:44px 0 18px;display:flex;align-items:baseline;gap:14px}
+.g-group h2{font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+.g-group span{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.g-grid{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.g-cell{display:flex;flex-direction:column;gap:10px}
+.g-cell>figcaption{font-size:12px;color:var(--muted);max-width:390px;padding:0 6px}
+.g-cell>figcaption b{color:var(--ink);display:block;font-size:13px}
+@media(max-width:440px){.c-phone{width:100%;height:auto;min-height:780px}}

@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CEROL · Biblioteca de Componentes</title>
+<link rel="stylesheet" href="ds.css">
+<style>
+  /* estilos SÓ desta página de documentação (não são componentes) */
+  .doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+  .doc-card{background:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px}
+  .doc-card.on-dark{background:#0b120c}
+  .doc-card h3{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+  .doc-card.on-dark h3{color:#fff}
+  .doc-card code{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#565d55;background:#eceee9;padding:2px 8px;border-radius:999px;width:max-content;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .doc-card.on-dark code{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7)}
+  .doc-ex{display:flex;flex-direction:column;gap:10px;background:#c8cbc3;border-radius:14px;padding:14px}
+  .doc-sw{display:flex;gap:10px;flex-wrap:wrap}
+  .doc-sw span{width:92px;height:64px;border-radius:12px;display:flex;align-items:flex-end;padding:8px;font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:700}
+  .doc-h{margin:40px 0 16px;display:flex;align-items:baseline;gap:12px}
+  .doc-h h2{font-size:22px;font-weight:800;text-transform:uppercase}
+  .doc-h span{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#565d55}
+</style>
+</head>
+<body class="ds g-page">
+<!-- SPRITE:BEGIN -->
+<!-- Sprite de ícones CEROL — stroke 2, 24×24. Copiar este bloco no topo de cada página e usar: <svg class="ic"><use href="#i-nome"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v11h14V10"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0114 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM7 5H4a3 3 0 003 4M17 5h3a3 3 0 01-3 4"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1.2 13H7.2L6 8zM9 8a3 3 0 016 0"/></symbol>
+  <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M4.8 6.2c3.4 1.4 5.2 3.6 5.2 5.8s-1.8 4.4-5.2 5.8M19.2 6.2c-3.4 1.4-5.2 3.6-5.2 5.8s1.8 4.4 5.2 5.8"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20c0-3.4 3-5 6.5-5s6.5 1.6 6.5 5M16 4.6a3.4 3.4 0 010 6.8M17.5 15.4c2.3.5 4 1.9 4 4.6"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6M10 19a2 2 0 004 0"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3s5.5 4.2 5.5 9.2A5.5 5.5 0 016 12.2c0-2 1-3.7 2.2-5.2 0 2 .9 3.1 2 3.4-.6-2.2-.2-5.4 1.8-7.4z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 10v4M9.5 2h5"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><path d="M14 14h3v3h-3zM20 14v6h-6"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18M7 15h4"/></symbol>
+  <symbol id="i-pix" viewBox="0 0 24 24"><path d="M12 3l9 9-9 9-9-9z"/><path d="M12 8l4 4-4 4-4-4z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.8 6.3.8-4.7 4.3 1.2 6.1L12 17l-5.5 3 1.2-6.1L3 9.6l6.3-.8z"/></symbol>
+  <symbol id="i-medal" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M8.8 13.6L7 21l5-2.8L17 21l-1.8-7.4"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="1.5"/><path d="M3 10h18M12 10v11M12 9.5S8.5 9.7 7.4 7.6C6.6 6 8.4 4.4 10 5.3c1.4.8 2 4.2 2 4.2s.6-3.4 2-4.2c1.6-.9 3.4.7 2.6 2.3-1.1 2.1-4.6 1.9-4.6 1.9z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M4 13v7h16v-7M12 3v12M8 7l4-4 4 4"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H10l-6 4z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5l12 7-12 7z"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M16 10.5l5-3v9l-5-3z"/></symbol>
+  <symbol id="i-gps" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+  <symbol id="i-racket" viewBox="0 0 24 24"><ellipse cx="13.5" cy="7.8" rx="5.6" ry="6.4" transform="rotate(-18 13.5 7.8)"/><path d="M9.8 13.5L4 21M10 5.5l5.5 5M8.4 8.8l6.8 1.2"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-9.3-9.3C1.3 7 3.6 4 6.7 4c2 0 3.8 1 5.3 3 1.5-2 3.3-3 5.3-3 3.1 0 5.4 3 4 6.7C19.5 15.4 12 20 12 20z"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M3 10V6.5A1.5 1.5 0 014.5 5H18"/><circle cx="16.5" cy="13.5" r="1.2"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3.5L3.5 6l1.8 4 2.2-.9v11.4h9V9.1l2.2.9 1.8-4-5-2.5a3.5 3.5 0 01-7 0z"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M16.7 13.2c0-2.4 2-3.5 2.1-3.6-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-3.9 2.4-1.7 2.9-.4 7.3 1.2 9.7.8 1.2 1.7 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.7-3.9zM14.5 5.6c.7-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.2 1.9-1 3 1 .1 2.1-.6 2.8-1.4z"/></symbol>
+  <symbol id="i-google" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M21.4 11.1H12v3h5.4c-.3 1.6-1.9 4.4-5.4 4.4-3.2 0-5.9-2.7-5.9-6.5S8.8 5.5 12 5.5c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.9 2.9 14.7 2 12 2 6.9 2 2.9 6.5 2.9 12s4 10 9.1 10c5.2 0 8.7-3.7 8.7-8.9 0-.7-.1-1.4-.3-2z"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M4.5 13.5a7.5 7.5 0 0115 0V15h-15zM12 6V4M19.5 15c1.9.4 2.8 1.4 2.3 2.4-.6 1.2-3.2 1.2-6 .4"/></symbol>
+</svg>
+
+<!-- SPRITE:END -->
+<!-- sprite copiado de icons.svg.html — edite lá e rode build.py para sincronizar -->
+
+<div class="g-wrap">
+  <header class="g-head">
+    <p class="t-label">Cerol · Design System · Court Mode</p>
+    <h1 class="t-display" style="font-size:44px">Biblioteca de<br>componentes</h1>
+    <p class="t-body t-muted" style="max-width:60ch;margin-top:10px">Fonte de verdade: <b>ds.css</b>. Toda tela em <b>screens/</b> compõe só o que está aqui — mexa num componente e todas as telas herdam. Ícones em <b>icons.svg.html</b>.</p>
+  </header>
+
+  <div class="doc-h"><h2>Tokens</h2><span>cores · tipo · raio</span></div>
+  <div class="doc-grid">
+    <div class="doc-card" style="grid-column:1/-1">
+      <h3>Paleta</h3><code>var(--saibro | --ink | --lime | --acid | --court | --pine | --clay)</code>
+      <div class="doc-sw">
+        <span style="background:#c8cbc3">saibro</span>
+        <span style="background:#0b120c;color:#ccff33">ink</span>
+        <span style="background:#99cc00">lime</span>
+        <span style="background:#ccff33">acid</span>
+        <span style="background:#2e5ce6;color:#fff">court</span>
+        <span style="background:#12301f;color:#99cc00">pine</span>
+        <span style="background:#c4553a;color:#fff">clay</span>
+        <span style="background:#fff;border:1px solid #ddd">card</span>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Tipo</h3><code>.t-display .t-h1 .t-h2 .t-label .t-num-xl …</code>
+      <div class="doc-ex">
+        <span class="t-display" style="font-size:28px">Display 800</span>
+        <span class="t-h1">Título H1</span>
+        <span class="t-label">Eyebrow · label</span>
+        <span class="t-num-xl">42:18</span>
+        <span class="t-body">Corpo 14px — Archivo</span>
+        <span class="t-micro t-muted">micro 11px muted</span>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Regras rápidas</h3><code>raio: pill (ações) · 20 (tiles) · 12 (interno)</code>
+      <div class="doc-ex t-small">
+        <span>· Números sempre <b class="t-num">t-num</b> (tabulares)</span>
+        <span>· Progresso preferencial: <b>ticks</b> (bolinhas)</span>
+        <span>· Dados em destaque: tile <b>pine</b> com valores lime</span>
+        <span>· Ícone = SVG do sprite, nunca emoji</span>
+        <span>· Motion: <b class="t-num">cubic-bezier(.625,.05,0,1)</b></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-h"><h2>Navegação</h2><span>appbar · tabbar · avatar</span></div>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <h3>App bar</h3><code>.c-appbar + .c-avatar[--p] + .c-chip + .c-bell</code>
+      <div class="doc-ex">
+        <header class="c-appbar">
+          <span class="c-avatar" style="--p:72%"><span class="c-avatar__in">MC</span><span class="c-avatar__lvl">12</span></span>
+          <span class="c-chip"><svg class="ic" style="color:var(--clay)"><use href="#i-flame"/></svg><b>13</b></span>
+          <span class="c-chip"><svg class="ic" style="color:#7a9d00"><use href="#i-ball"/></svg><b>480</b></span>
+          <span class="c-bell u-right"><svg class="ic"><use href="#i-bell"/></svg><i class="c-dot"></i></span>
+        </header>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Tab bar + FAB Jogar</h3><code>.c-tabbar > .c-tab(.is-on) + .c-fab</code>
+      <div class="doc-ex" style="padding:0;background:transparent">
+        <nav class="c-tabbar" style="border-radius:20px">
+          <a class="c-tab is-on" href="#"><svg class="ic"><use href="#i-home"/></svg>Início</a>
+          <a class="c-tab" href="#"><svg class="ic"><use href="#i-pin"/></svg>Explorar</a>
+          <a class="c-fab" href="#"><svg class="ic"><use href="#i-ball"/></svg></a>
+          <a class="c-tab" href="#"><svg class="ic"><use href="#i-trophy"/></svg>Ligas</a>
+          <a class="c-tab" href="#"><svg class="ic"><use href="#i-bag"/></svg>Loja</a>
+        </nav>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Banner de compromisso</h3><code>.c-banner</code>
+      <div class="doc-ex">
+        <a class="c-banner" href="#">
+          <svg class="ic"><use href="#i-check"/></svg>
+          <span class="u-grow"><b class="t-h3">Confirmar placar</b><span class="t-micro" style="opacity:.65">Pedro registrou 6-4 · 6-3</span></span>
+          <svg class="ic"><use href="#i-chev"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-h"><h2>Tiles</h2><span>bento — a unidade base das telas</span></div>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <h3>Variantes</h3><code>.c-tile (--ink --pine --lime --acid --court --flat --outline) .c-courtbg</code>
+      <div class="doc-ex">
+        <div class="c-tile"><span class="t-label">card (padrão)</span></div>
+        <div class="c-tile c-tile--pine c-courtbg"><span class="t-label">pine + courtbg</span><span class="t-num-l">dados em lime</span></div>
+        <div class="c-tile c-tile--acid"><span class="t-label" style="color:rgba(11,18,12,.55)">acid — insight/celebração</span></div>
+        <div class="c-tile c-tile--outline u-center"><span class="t-small t-muted">outline — vazio/adicionar</span></div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Stat</h3><code>.c-stat > .c-stat__v + .c-delta(.is-down)</code>
+      <div class="doc-ex">
+        <div class="c-tile">
+          <div class="c-tile__cap"><span class="t-label">Receita do tile</span><svg class="ic ic--s t-muted"><use href="#i-chev"/></svg></div>
+          <div class="c-stat"><div class="c-stat__v"><span class="t-num-xl">4º</span><span class="t-small t-muted">de 30</span><span class="c-delta u-right">▲ 2</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Chips & dots</h3><code>.c-chip (--ink --lime --acid --court --ghost) · .c-dot</code>
+      <div class="doc-ex">
+        <div class="u-flex u-wrap u-gap2">
+          <span class="c-chip">padrão</span>
+          <span class="c-chip c-chip--ink">ink</span>
+          <span class="c-chip c-chip--lime">lime</span>
+          <span class="c-chip c-chip--acid">acid</span>
+          <span class="c-chip c-chip--court">court</span>
+          <span class="c-chip c-chip--ghost">ghost</span>
+          <span class="c-chip"><svg class="ic"><use href="#i-ball"/></svg><b>480</b></span>
+        </div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Botões</h3><code>.c-btn (--ink --ghost --card --block --s)</code>
+      <div class="doc-ex">
+        <button class="c-btn c-btn--block">Primário — acid</button>
+        <button class="c-btn c-btn--ink c-btn--block">Ink <svg class="ic"><use href="#i-arrow"/></svg></button>
+        <div class="u-flex"><button class="c-btn c-btn--ghost c-btn--s">ghost s</button><button class="c-btn c-btn--card c-btn--s">card s</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-h"><h2>Progresso & dados</h2><span>a linguagem da bolinha</span></div>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <h3>Barra · Ticks · Ticks-bars</h3><code>.c-bar > i[width%] · .c-ticks(.--bars) > i(.on .hot)</code>
+      <div class="doc-ex">
+        <div class="c-bar"><i style="width:64%"></i></div>
+        <span class="c-ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i></span>
+        <span class="c-ticks c-ticks--bars"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Ring</h3><code>.c-ring[style="--v:64%"]</code>
+      <div class="doc-ex"><div class="u-flex"><span class="c-ring" style="--v:64%"><span class="t-num t-small"><b>64%</b></span></span><span class="c-ring" style="--v:30%"><span class="t-num t-small"><b>30%</b></span></span></div></div>
+    </div>
+    <div class="doc-card">
+      <h3>Mini bar chart</h3><code>.c-bars > i[--h](.on .hot)</code>
+      <div class="doc-ex">
+        <div class="c-bars"><i style="--h:30%"></i><i style="--h:55%" class="on"></i><i style="--h:40%"></i><i style="--h:70%" class="on"></i><i style="--h:90%" class="hot"></i><i style="--h:50%" class="on"></i><i style="--h:20%"></i></div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Trilha (skill path)</h3><code>.c-path > i(.on .hot) + u(.on)</code>
+      <div class="doc-ex">
+        <div class="c-path"><i class="on"></i><u class="on"></u><i class="on"></i><u class="on"></u><i class="on"></i><u class="on"></u><i class="hot"></i><u></u><i></i><u></u><i></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-h"><h2>Listas</h2><span>jogos · liga · pessoas</span></div>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <h3>Linha de jogo</h3><code>.c-list > .c-row (.c-res--v/--d · .c-row__lead(--ball))</code>
+      <div class="doc-ex">
+        <div class="c-tile"><div class="c-list">
+          <div class="c-row"><span class="c-res c-res--v">V</span><span class="c-row__body"><b>6-4 · 6-3 vs Pedro</b><span>simples · Clube Saibro</span></span><span class="c-row__end t-num t-small"><b>+120 XP</b></span></div>
+          <div class="c-row"><span class="c-row__lead c-row__lead--ball"><svg class="ic ic--s"><use href="#i-timer"/></svg></span><span class="c-row__body"><b>Treino de saque · 45min</b><span>missão concluída</span></span><span class="c-row__end t-num t-small"><b>+80 XP</b></span></div>
+        </div></div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Liga</h3><code>.c-lrow(.is-you) + .c-zone(--up --down) + .c-face(--lime --court --clay)</code>
+      <div class="doc-ex">
+        <div class="c-tile">
+          <div class="c-zone c-zone--up">Top 10 sobem</div>
+          <div class="c-lrow"><span class="pos">1</span><span class="c-face c-face--lime">RA</span><span class="t-small u-grow">Rafa</span><span class="pl">940</span></div>
+          <div class="c-lrow is-you"><span class="pos">4</span><span class="c-face">MC</span><span class="t-small u-grow"><b>Você</b></span><span class="pl">680</span></div>
+          <div class="c-zone c-zone--down">Últimos 5 caem</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-h"><h2>Formulários</h2><span>inputs · seleção · horários</span></div>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <h3>Seg · Input · Toggle</h3><code>.c-seg > span.is-on · .c-input · .c-toggle.is-on</code>
+      <div class="doc-ex">
+        <div class="c-seg"><span class="is-on">Simples</span><span>Duplas</span><span>Racha</span></div>
+        <div class="c-input"><svg class="ic t-muted"><use href="#i-search"/></svg><span class="t-muted t-body">Buscar quadras, jogadores…</span></div>
+        <div class="u-flex"><span class="c-toggle is-on"></span><span class="c-toggle"></span></div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Opção · Slots</h3><code>.c-opt(.is-on) · .c-slots > .c-slot(.is-on .is-off)</code>
+      <div class="doc-ex">
+        <div class="c-opt is-on"><svg class="ic"><use href="#i-bell"/></svg><span class="u-grow t-small"><b>Notificações</b></span><span class="c-toggle is-on"></span></div>
+        <div class="c-slots"><span class="c-slot is-off">18:00</span><span class="c-slot is-on">19:00</span><span class="c-slot">20:00</span><span class="c-slot">21:00</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-h"><h2>Mundo físico & extras</h2><span>mapa · sheet · medalha · steps</span></div>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <h3>Mapa</h3><code>.c-map + .c-map__lines + .c-pin(--ink --card)</code>
+      <div class="doc-ex" style="padding:0;background:transparent">
+        <div class="c-map" style="min-height:170px">
+          <div class="c-map__lines"></div>
+          <span class="c-pin" style="top:26%;left:22%"><svg class="ic"><use href="#i-ball"/></svg></span>
+          <span class="c-pin c-pin--ink" style="top:55%;left:60%"><svg class="ic"><use href="#i-users"/></svg></span>
+        </div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Sheet do FAB</h3><code>.c-sheet + .c-sheet__handle + .c-opt</code>
+      <div class="doc-ex" style="padding:0;background:transparent">
+        <div class="c-sheet" style="border-radius:20px">
+          <div class="c-sheet__handle"></div>
+          <div class="c-opt"><svg class="ic"><use href="#i-timer"/></svg><span class="u-grow t-small"><b>Registrar sessão</b><span class="t-micro t-muted" style="display:block">timer, contador ou Apple Saúde</span></span><svg class="ic"><use href="#i-chev"/></svg></div>
+        </div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Medalha · Steps · Preço</h3><code>.c-medal · .c-step > .n · .c-price</code>
+      <div class="doc-ex">
+        <div class="u-flex"><span class="c-medal"><svg class="ic"><use href="#i-medal"/></svg></span>
+        <div class="u-col u-gap1"><div class="c-step"><span class="n">1</span>Jogue ou treine</div><div class="c-step"><span class="n">2</span>Registre em 60s</div></div></div>
+        <div class="c-price"><b>R$ 79</b><span>medalha física inclusa</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-h"><h2>Social & chat</h2><span>bubbles · emblemas · card de stories</span></div>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <h3>Chat do match</h3><code>.c-thread > .c-bubble(.c-bubble--me) + small</code>
+      <div class="doc-ex">
+        <div class="c-thread">
+          <div class="c-bubble">Levo bolas novas. Aquece 15min antes?<small>8:41</small></div>
+          <div class="c-bubble c-bubble--me">Fechado! Quadra 2 confirmada.<small>8:43</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Emblemas</h3><code>.c-emblems > .c-emblem(.is-locked) > .c-medal + b + small</code>
+      <div class="doc-ex">
+        <div class="c-emblems">
+          <div class="c-emblem"><span class="c-medal"><svg class="ic"><use href="#i-check"/></svg></span><b>Bola dentro!</b><small>jul 2026</small></div>
+          <div class="c-emblem"><span class="c-medal"><svg class="ic"><use href="#i-trophy"/></svg></span><b>1ª vitória</b><small>ago 2026</small></div>
+          <div class="c-emblem is-locked"><span class="c-medal"><svg class="ic"><use href="#i-flame"/></svg></span><b>Sequência 20</b><small>20 semanas</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Card de stories</h3><code>.c-story(.c-courtbg) — preview 9:16 do resultado</code>
+      <div class="doc-ex">
+        <div class="c-story c-courtbg">
+          <span class="t-label">CEROL</span>
+          <span class="t-num-xl">6-4 · 6-3</span>
+          <span class="t-small">vs Pedro · Clube Saibro</span>
+          <span class="c-chip c-chip--acid t-num">▲ 0.10 rating</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-h"><h2>Motion</h2><span>seção 19 — automáticos + opt-in (ver DIRECAO.md)</span></div>
+  <div class="doc-grid">
+    <div class="doc-card">
+      <h3>Automáticos</h3><code>press em tudo acionável · anel do .c-fab · pulso do .c-path i.hot · respiro do .c-bell .c-dot</code>
+      <div class="doc-ex">
+        <div class="u-flex"><a class="c-fab" style="margin-top:0;border-color:#fff"><svg class="ic"><use href="#i-ball"/></svg></a>
+        <div class="c-path u-grow"><i class="on"></i><u class="on"></u><i class="on"></i><u class="on"></u><i class="hot"></i><u></u><i></i></div>
+        <span class="c-bell"><svg class="ic"><use href="#i-bell"/></svg><i class="c-dot"></i></span></div>
+        <p class="t-micro t-muted">Toque comprime (scale .96, 150ms). Tudo com --ease; reduced-motion zera.</p>
+      </div>
+    </div>
+    <div class="doc-card">
+      <h3>Opt-in</h3><code>.m-rise · .m-pop · .m-stag (filhos em cascata) · .m-fill (barra) · .m-burst (celebração)</code>
+      <div class="doc-ex">
+        <div class="c-bar m-fill"><i style="width:70%"></i></div>
+        <div class="u-flex"><span class="c-medal m-burst"><svg class="ic"><use href="#i-medal"/></svg></span><span class="t-micro t-muted">m-burst: overshoot de celebração — use 1× por tela, no momento da recompensa.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:48px"><p class="t-micro t-muted">CEROL · ds.css é a fonte de verdade — edite lá, todas as telas herdam. Ícones: icons.svg.html · Direção: DIRECAO.md</p></footer>
+</div>
+</body>
+</html>

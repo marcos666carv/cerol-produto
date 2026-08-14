@@ -1,0 +1,56 @@
+<!-- TELA: Adicionar cartão (sheet do gateway) · fundo Pagamentos esmaecido · sem tabbar -->
+<figure class="g-cell" id="tela-cartao">
+  <div class="c-phone">
+    <div class="c-status"><span>9:41</span><span class="not"></span><span class="t-num">5G ▮▮▮</span></div>
+    <div class="c-screen">
+
+      <header class="c-appbar" style="opacity:.3">
+        <span class="c-chip c-chip--ghost"><svg class="ic"><use href="#i-chev"/></svg></span>
+        <h1 class="t-h2">Pagamentos</h1>
+      </header>
+
+      <section class="c-tile" style="opacity:.3">
+        <div class="c-tile__cap"><span class="t-label">Métodos</span></div>
+        <div class="c-list">
+          <div class="c-row">
+            <span class="c-row__lead"><svg class="ic ic--s"><use href="#i-card"/></svg></span>
+            <span class="c-row__body"><b>Visa •••• 6411</b><span>principal</span></span>
+            <span class="c-chip c-chip--lime"><svg class="ic"><use href="#i-check"/></svg>ativo</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="c-sheet">
+        <div class="c-sheet__handle"></div>
+        <div class="u-col">
+          <div class="u-between">
+            <h2 class="t-h2">Adicionar cartão</h2>
+            <span class="c-chip c-chip--ghost"><svg class="ic"><use href="#i-card"/></svg>gateway seguro</span>
+          </div>
+          <div class="c-field">
+            <span class="t-label">Número do cartão</span>
+            <div class="c-input c-input--flat"><svg class="ic ic--s t-muted"><use href="#i-card"/></svg><span class="t-muted t-num">0000 0000 0000 0000</span></div>
+          </div>
+          <div class="u-grid2">
+            <div class="c-field">
+              <span class="t-label">Validade</span>
+              <div class="c-input c-input--flat"><span class="t-muted t-num">MM/AA</span></div>
+            </div>
+            <div class="c-field">
+              <span class="t-label">CVV</span>
+              <div class="c-input c-input--flat"><span class="t-muted t-num">•••</span></div>
+            </div>
+          </div>
+          <div class="c-row">
+            <span class="c-row__body"><b>Confirmar compras com biometria</b></span>
+            <span class="c-toggle is-on"></span>
+          </div>
+          <p class="t-micro t-muted">Formulário do gateway (Pagar.me/Stripe) — o CEROL guarda só bandeira e últimos 4 dígitos (PCI fora do app).</p>
+          <button class="c-btn c-btn--block">Salvar cartão</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <figcaption><b>Adicionar cartão (sheet)</b>Sheet do gateway sobre a tela de Pagamentos esmaecida: número, validade e CVV nunca tocam o backend do CEROL — só bandeira e últimos 4 dígitos voltam tokenizados. Biometria confirma compras futuras.</figcaption>
+</figure>
